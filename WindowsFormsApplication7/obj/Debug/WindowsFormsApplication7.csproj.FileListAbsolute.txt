@@ -1,0 +1,14 @@
+c:\Users\home\Documents\Visual Studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\WindowsFormsApplication7.csprojResolveAssemblyReference.cache
+c:\Users\home\Documents\Visual Studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\WindowsFormsApplication7.Form1.resources
+c:\Users\home\Documents\Visual Studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\WindowsFormsApplication7.csproj.GenerateResource.Cache
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\bin\Debug\AOffset.exe.config
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\bin\Debug\AOffset.exe.manifest
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\bin\Debug\AOffset.application
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\bin\Debug\AOffset.exe
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\bin\Debug\AOffset.pdb
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.Properties.Resources.resources
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.TrustInfo.xml
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.exe.manifest
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.application
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.exe
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.pdb
