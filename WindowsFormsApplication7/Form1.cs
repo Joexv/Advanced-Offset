@@ -8,14 +8,16 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.IO;
+using IniParser;
+using IniParser.Model;
 
-        
+
 namespace WindowsFormsApplication7
 {
-    public partial class Form1 : Form
+    public partial class Aoffsets : Form
     {
         string fileLocation;
-        string result1= "error";
+        string result1 = "error";
         bool FireRed = false;
         bool MrDS = false;
         bool LeafGreen = false;
@@ -24,354 +26,355 @@ namespace WindowsFormsApplication7
         bool Ruby = false;
         bool other = false;
         ClassXV PokeHelper = new ClassXV();
+        IniFile Ini = new IniFile();
 
-        public Form1()
+        public Aoffsets()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-                OpenFileDialog ofd = new OpenFileDialog();
-                BB.Enabled = false;
-                ofd.Filter = "GBA File (*.gba)|*.gba";
-                if (ofd.ShowDialog() == DialogResult.OK)
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            BB.Enabled = false;
+            ofd.Filter = "GBA File (*.gba)|*.gba";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = ofd.FileName;
+                BinaryReader br = new BinaryReader(File.OpenRead(ofd.FileName));
+                br.BaseStream.Seek(0xAC, SeekOrigin.Begin);
+                switch (Encoding.UTF8.GetString(br.ReadBytes(4)))
                 {
-                    string filePath = ofd.FileName;
-                    BinaryReader br = new BinaryReader(File.OpenRead(ofd.FileName));
-                    br.BaseStream.Seek(0xAC, SeekOrigin.Begin);
-                    switch (Encoding.UTF8.GetString(br.ReadBytes(4)))
-                    {
-                        case "MrDS":
-                            FireRed = false;
-                            MrDS = true;
-                            LeafGreen = false;
-                            other = false;
-                            Emerald = false;
-                            Ruby = false;
-                            other = false;
-                            break;
-                        case "BPRE":
-                            FireRed = true;
-                            LeafGreen = false;
-                            other = false;
-                            Emerald = false;
-                            Ruby = false;
-                            other = false;
-                            break;
-                        case "BPGE":
-                            FireRed = false;
-                            LeafGreen = true;
-                            other = false;
-                            Emerald = false;
-                            Ruby = false;
-                            other = false;
-                            break;
-                        case "BPEE":
-                            FireRed = false;
-                            LeafGreen = false;
-                            Emerald = true;
-                            Ruby = false;
-                            other = false;
-                            break;
-                        case "AXVE":
-                            FireRed = false;
-                            LeafGreen = false;
-                            Emerald = false;
-                            Ruby = true;
-                            other = false;
-                            break;
-                        case "AXPE":
-                            FireRed = false;
-                            LeafGreen = false;
-                            Ruby = true;
-                            Sapphire = false;
-                            Emerald = false;
-                            other = false;
-                            break;
-                        default:
-                            FireRed = false;
-                            LeafGreen = false;
-                            Ruby = false;
-                            Sapphire = false;
-                            Emerald = false;
-                            other = true;
-                            break;
-                    }
-                    if (other == true)
-                    {
-                        DialogResult result = MessageBox.Show("This game cannot be identified. If this is a ROM with a custom ID but with the normal english offsets then procede with caution. If it is not, it may cause irreversible damage. Do you wish to continue?", "Warning", MessageBoxButtons.YesNo);
-                        if (result == DialogResult.No)
-                        {
-                            other = false;
-                        }
-                        DialogResult result2 = MessageBox.Show("If this ROM is Fire Red (BPRE) based then click Yes. If it's Emerald (BPEE) then click no. Else open a new supported ROM with the open button.", "Warning", MessageBoxButtons.YesNo);
-                        if (result2 == DialogResult.No)
-                        {
-                            Emerald = true;
-                            other = false;
-                        }
-                        if (result2 == DialogResult.Yes)
-                        {
-                            FireRed = true;
-                            other = false;
-                        }
-                    }
-                    if (MrDS == true)
-                    {
-                        button1.Enabled = false;
-                        long FRTitleLogo = 0x78a98;
-                        long FRTitleLogoRaw = 0x78a9c;
-                        long FRTitleBack = 0x78ab0;
-                        long FRTitleBackRaw = 0x78ab4;
-                        long FRTitleSprite = 0x78aa4;
-                        long FRTitleSpriteRaw = 0x78aa8;
-                        long FRStats = 0x1bc;
-                        long FRPName = 0x144;
-                        long FRType = 0x309c8;
-                        long FRAbill = 0xd8004;
-                        long FRLMoves = 0x43f84;
-                        long FRMNames = 0x148;
-                        long FREggM = 0x045C50;
-                        long FRTMCom = 0x43c68;
-                        long FRTMList = 0x125a8c;
-                        long FREvo = 0x42f6c;
-                        long FRFront = 0x128;
-                        long FRBack = 0x12c;
-                        long FRPal = 0x130;
-                        long FRSPal = 0x134;
-                        long FRDex = 0x88e34;
-                        long FRTutCom = 0x120c30;
-                        long FREnY = 0x11f4c;
-                        long FRPlaY = 0x74634;
-                        long FREnAlt = 0x356f8;
-                        long FRIconS = 0x138;
-                        long FRIconP = 0x13c;
-                        long FRIP = 0x8ab40;
-                        long FRNDex = 0x4323c;
-                        long FRFeet = 0x105e14;
-                        long FRWM = 0xc0330;
-                        AllOffsets.Enabled = true;
-                        Rom.Text = "MrDollSteak Base";
-                        fileLocation = ofd.FileName;
-                        HeaderCode.Text = PokeHelper.DisplayHeader(fileLocation, result1);
-                        //Logo
-                        br.BaseStream.Seek(FRTitleLogoRaw, SeekOrigin.Begin);
-                        PLogo.Text = PokeHelper.DisplayOffset2(FRTitleLogo, FRTitleLogoRaw, fileLocation, result1);
-                        Version.Enabled = false;
-                        TSprite.Enabled = true;
-                        //Titlebackground
-                        TBack.Text = PokeHelper.DisplayOffset2(FRTitleBack, FRTitleBackRaw, fileLocation, result1);
-                        //TitleSprite
-                        TSprite.Text = PokeHelper.DisplayOffset2(FRTitleSprite, FRTitleSpriteRaw, fileLocation, result1);
-                        //Poke locations
-                        Evo.Text = PokeHelper.DisplayOffset1(FREvo, fileLocation, result1);
-                        TMCom.Text = PokeHelper.DisplayOffset1(FRTMCom, fileLocation, result1);
-                        TMList.Text = PokeHelper.DisplayOffset1(FRTMList, fileLocation, result1);
-                        Eggs.Text = PokeHelper.DisplayOffset1(FREggM, fileLocation, result1);
-                        ANames.Text = PokeHelper.DisplayOffset1(FRMNames, fileLocation, result1);
-                        Moves.Text = PokeHelper.DisplayOffset1(FRLMoves, fileLocation, result1);
-                        Abillities.Text = PokeHelper.DisplayOffset1(FRAbill, fileLocation, result1);
-                        TNames.Text = PokeHelper.DisplayOffset1(FRType, fileLocation, result1);
-                        PNames.Text = PokeHelper.DisplayOffset1(FRPName, fileLocation, result1);
-                        Stats.Text = PokeHelper.DisplayOffset1(FRStats, fileLocation, result1);
-                        Front.Text = PokeHelper.DisplayOffset1(FRFront, fileLocation, result1);
-                        Back.Text = PokeHelper.DisplayOffset1(FRBack, fileLocation, result1);
-                        //Poke Locations 2
-                        Normal.Text = PokeHelper.DisplayOffset1(FRPal, fileLocation, result1);
-                        Shiny.Text = PokeHelper.DisplayOffset1(FRSPal, fileLocation, result1);
-                        Dex.Text = PokeHelper.DisplayOffset1(FRDex, fileLocation, result1);
-                        EnY.Text = PokeHelper.DisplayOffset1(FREnY, fileLocation, result1);
-                        PlaY.Text = PokeHelper.DisplayOffset1(FRPlaY, fileLocation, result1);
-                        EnAlt.Text = PokeHelper.DisplayOffset1(FREnAlt, fileLocation, result1);
-                        Tutor.Text = PokeHelper.DisplayOffset1(FRTutCom, fileLocation, result1);
-                        IconS.Text = PokeHelper.DisplayOffset1(FRIconS, fileLocation, result1);
-                        IconP.Text = PokeHelper.DisplayOffset1(FRIconP, fileLocation, result1);
-                        IP.Text = PokeHelper.DisplayOffset1(FRIP, fileLocation, result1);
-                        NDex.Text = PokeHelper.DisplayOffset1(FRNDex, fileLocation, result1);
-                        Feet.Text = PokeHelper.DisplayOffset1(FRFeet, fileLocation, result1);
-                        WM.Text = PokeHelper.DisplayOffset1(FRWM, fileLocation, result1);
-                    }
-                    if (FireRed == true)
-                    {
-                        button1.Enabled = false;
-                        long FRTitleLogo = 0x78a98;
-                        long FRTitleLogoRaw = 0x78a9c;
-                        long FRTitleBack = 0x78ab0;
-                        long FRTitleBackRaw = 0x78ab4;
-                        long FRTitleSprite = 0x78aa4;
-                        long FRTitleSpriteRaw = 0x78aa8;
-                        long FRStats = 0x1bc;
-                        long FRPName = 0x144;
-                        long FRType = 0x309c8;
-                        long FRAbill = 0xd8004;
-                        long FRLMoves = 0x43f84;
-                        long FRMNames = 0x148;
-                        long FREggM = 0x045C50;
-                        long FRTMCom = 0x43c68;
-                        long FRTMList = 0x125a8c;
-                        long FREvo = 0x42f6c;
-                        long FRFront = 0x128;
-                        long FRBack = 0x12c;
-                        long FRPal = 0x130;
-                        long FRSPal = 0x134;
-                        long FRDex = 0x88e34;
-                        long FRTutCom = 0x120c30;
-                        long FREnY = 0x11f4c;
-                        long FRPlaY = 0x74634;
-                        long FREnAlt = 0x356f8;
-                        long FRIconS = 0x138;
-                        long FRIconP = 0x13c;
-                        long FRIP = 0x8ab40;
-                        long FRNDex = 0x4323c;
-                        long FRFeet = 0x105e14;
-                        long FRWM = 0xc0330;
-                        AllOffsets.Enabled = true;
-                        Rom.Text = "Fire Red";
-                        fileLocation = ofd.FileName;
-                        HeaderCode.Text = PokeHelper.DisplayHeader(fileLocation, result1);
-                        //Logo
-                        br.BaseStream.Seek(FRTitleLogoRaw, SeekOrigin.Begin);
-                        PLogo.Text = PokeHelper.DisplayOffset2(FRTitleLogo, FRTitleLogoRaw, fileLocation, result1);
-                        Version.Enabled = false;
-                        TSprite.Enabled = true;
-                        //Titlebackground
-                        TBack.Text = PokeHelper.DisplayOffset2(FRTitleBack, FRTitleBackRaw, fileLocation, result1);
-                        //TitleSprite
-                        TSprite.Text = PokeHelper.DisplayOffset2(FRTitleSprite, FRTitleSpriteRaw, fileLocation, result1);
-                        //Poke locations
-                        Evo.Text = PokeHelper.DisplayOffset1(FREvo, fileLocation, result1);
-                        TMCom.Text = PokeHelper.DisplayOffset1(FRTMCom, fileLocation, result1);
-                        TMList.Text = PokeHelper.DisplayOffset1(FRTMList, fileLocation, result1);
-                        Eggs.Text = PokeHelper.DisplayOffset1(FREggM, fileLocation, result1);
-                        ANames.Text = PokeHelper.DisplayOffset1(FRMNames, fileLocation, result1);
-                        Moves.Text = PokeHelper.DisplayOffset1(FRLMoves, fileLocation, result1);
-                        Abillities.Text = PokeHelper.DisplayOffset1(FRAbill, fileLocation, result1);
-                        TNames.Text = PokeHelper.DisplayOffset1(FRType, fileLocation, result1);
-                        PNames.Text = PokeHelper.DisplayOffset1(FRPName, fileLocation, result1);
-                        Stats.Text = PokeHelper.DisplayOffset1(FRStats, fileLocation, result1);
-                        Front.Text = PokeHelper.DisplayOffset1(FRFront, fileLocation, result1);
-                        Back.Text = PokeHelper.DisplayOffset1(FRBack, fileLocation, result1);
-                        //Poke Locations 2
-                        Normal.Text = PokeHelper.DisplayOffset1(FRPal, fileLocation, result1);
-                        Shiny.Text = PokeHelper.DisplayOffset1(FRSPal, fileLocation, result1);
-                        Dex.Text = PokeHelper.DisplayOffset1(FRDex, fileLocation, result1);
-                        EnY.Text = PokeHelper.DisplayOffset1(FREnY, fileLocation, result1);
-                        PlaY.Text = PokeHelper.DisplayOffset1(FRPlaY, fileLocation, result1);
-                        EnAlt.Text = PokeHelper.DisplayOffset1(FREnAlt, fileLocation, result1);
-                        Tutor.Text = PokeHelper.DisplayOffset1(FRTutCom, fileLocation, result1);
-                        IconS.Text = PokeHelper.DisplayOffset1(FRIconS, fileLocation, result1);
-                        IconP.Text = PokeHelper.DisplayOffset1(FRIconP, fileLocation, result1);
-                        IP.Text = PokeHelper.DisplayOffset1(FRIP, fileLocation, result1);
-                        NDex.Text = PokeHelper.DisplayOffset1(FRNDex, fileLocation, result1);
-                        Feet.Text = PokeHelper.DisplayOffset1(FRFeet, fileLocation, result1);
-                        WM.Text = PokeHelper.DisplayOffset1(FRWM, fileLocation, result1);
-                    }
-                    if (LeafGreen == true)
-                    {
-                        Rom.Text = "Leaf Green";
-                        fileLocation = ofd.FileName;
-                        HeaderCode.Text = "Unsupported " + PokeHelper.DisplayHeader(fileLocation, result1);
-                    }
-                    if (other == true)
-                    {
-                        Rom.Text = "Unidentified game";
-                        fileLocation = ofd.FileName;
-                        HeaderCode.Text = "Unsupported " + PokeHelper.DisplayHeader(fileLocation, result1);
-                    }
-                    if (Emerald == true)
-                    {
-                        button1.Enabled = false;
-                        long EMTitleLogo = 0xaa94c;
-                        long EMTitleLogoRaw = 0xaa958;
-                        long EMTitleBack = 0xaa95c;
-                        long EMTitleBackRaw = 0xaa964;
-                        long EMTitleSprite = 0x540048;
-                        long EMTitleSpriteRaw = 0xaa98c;
-                        long EMStats = 0x1bc;//
-                        long EMPName = 0x144;//
-                        long EMType = 0x166f4;//
-                        long EMAbill = 0x1c0; //
-                        long EMLMoves = 0x6930c;//
-                        long EMMNames = 0x148; //
-                        long EMEggM = 0x703F0; //
-                        long EMTMCom = 0x6e048; //
-                        long EMTMList = 0x1b6d10; //
-                        long EMEvo = 0x6d140; //
-                        long EMEMont = 0x128; //
-                        long EMBack = 0x12c; //
-                        long EMPal = 0x130; //
-                        long EMSPal = 0x134; //
-                        long EMDex = 0xbfa20; //
-                        long EMTutCom = 0x1b2390; //
-                        long EMEnY = 0x2dc78; //
-                        long EMPlaY = 0xa5e8c; //
-                        long EMEnAlt = 0x5ee44; //
-                        long EMIconS = 0x138; //
-                        long EMIconP = 0x13c; //
-                        long EMIP = 0xc4208; //
-                        long EMNDex = 0x6d448; //
-                        long EMFeet = 0xc0dbc; //
-                        long EMWM = 0x122e14;
-                        long EMWM2 = 0x122e14;
-                        AllOffsets.Enabled = true;
-                        Rom.Text = "Emerald";
-                        fileLocation = ofd.FileName;
-                        HeaderCode.Text = PokeHelper.DisplayHeader(fileLocation, result1);
-                        //Logo
-                        br.BaseStream.Seek(EMTitleLogoRaw, SeekOrigin.Begin);
-                        PLogo.Text = PokeHelper.DisplayOffset2(EMTitleLogo, EMTitleLogoRaw, fileLocation, result1);
-                        Version.Text = PokeHelper.DisplayOffset2(EMTitleSprite, EMTitleSpriteRaw, fileLocation, result1);
-                        Version.Enabled = false;
-                        //Titlebackground
-                        TBack.Text = PokeHelper.DisplayOffset2(EMTitleBack, EMTitleBackRaw, fileLocation, result1);
-                        //TitleSprite
-                        TSprite.Enabled = false;
-                        //Poke locations
-                        Evo.Text = PokeHelper.DisplayOffset1(EMEvo, fileLocation, result1);
-                        TMCom.Text = PokeHelper.DisplayOffset1(EMTMCom, fileLocation, result1);
-                        TMList.Text = PokeHelper.DisplayOffset1(EMTMList, fileLocation, result1);
-                        Eggs.Text = PokeHelper.DisplayOffset1(EMEggM, fileLocation, result1);
-                        ANames.Text = PokeHelper.DisplayOffset1(EMMNames, fileLocation, result1);
-                        Moves.Text = PokeHelper.DisplayOffset1(EMLMoves, fileLocation, result1);
-                        Abillities.Text = PokeHelper.DisplayOffset1(EMAbill, fileLocation, result1);
-                        TNames.Text = PokeHelper.DisplayOffset1(EMType, fileLocation, result1);
-                        PNames.Text = PokeHelper.DisplayOffset1(EMPName, fileLocation, result1);
-                        Stats.Text = PokeHelper.DisplayOffset1(EMStats, fileLocation, result1);
-                        Front.Text = PokeHelper.DisplayOffset1(EMEMont, fileLocation, result1);
-                        Back.Text = PokeHelper.DisplayOffset1(EMBack, fileLocation, result1);
-                        //Poke Locations 2
-                        Normal.Text = PokeHelper.DisplayOffset1(EMPal, fileLocation, result1);
-                        Shiny.Text = PokeHelper.DisplayOffset1(EMSPal, fileLocation, result1);
-                        Dex.Text = PokeHelper.DisplayOffset1(EMDex, fileLocation, result1);
-                        EnY.Text = PokeHelper.DisplayOffset1(EMEnY, fileLocation, result1);
-                        PlaY.Text = PokeHelper.DisplayOffset1(EMPlaY, fileLocation, result1);
-                        EnAlt.Text = PokeHelper.DisplayOffset1(EMEnAlt, fileLocation, result1);
-                        Tutor.Text = PokeHelper.DisplayOffset1(EMTutCom, fileLocation, result1);
-                        IconS.Text = PokeHelper.DisplayOffset1(EMIconS, fileLocation, result1);
-                        IconP.Text = PokeHelper.DisplayOffset1(EMIconP, fileLocation, result1);
-                        IP.Text = PokeHelper.DisplayOffset1(EMIP, fileLocation, result1);
-                        NDex.Text = PokeHelper.DisplayOffset1(EMNDex, fileLocation, result1);
-                        Feet.Text = PokeHelper.DisplayOffset1(EMFeet, fileLocation, result1);
-                        //worldmap
-                        WM.Text = PokeHelper.DisplayOffset1(EMWM, fileLocation, result1);
-                    }
-                    if (Ruby == true)
-                    {
-                        Rom.Text = "Ruby";
-                        fileLocation = ofd.FileName;
-                        HeaderCode.Text = "Unsupported " + PokeHelper.DisplayHeader(fileLocation, result1);
-                    }
-                    if (Sapphire == true)
-                    {
-                        Rom.Text = "sapphire";
-                        fileLocation = ofd.FileName;
-                        HeaderCode.Text = "Unsupported " + PokeHelper.DisplayHeader(fileLocation, result1);
-                    }
-                    br.Close();
+                    case "MrDS":
+                        FireRed = false;
+                        MrDS = true;
+                        LeafGreen = false;
+                        other = false;
+                        Emerald = false;
+                        Ruby = false;
+                        other = false;
+                        break;
+                    case "BPRE":
+                        FireRed = true;
+                        LeafGreen = false;
+                        other = false;
+                        Emerald = false;
+                        Ruby = false;
+                        other = false;
+                        break;
+                    case "BPGE":
+                        FireRed = false;
+                        LeafGreen = true;
+                        other = false;
+                        Emerald = false;
+                        Ruby = false;
+                        other = false;
+                        break;
+                    case "BPEE":
+                        FireRed = false;
+                        LeafGreen = false;
+                        Emerald = true;
+                        Ruby = false;
+                        other = false;
+                        break;
+                    case "AXVE":
+                        FireRed = false;
+                        LeafGreen = false;
+                        Emerald = false;
+                        Ruby = true;
+                        other = false;
+                        break;
+                    case "AXPE":
+                        FireRed = false;
+                        LeafGreen = false;
+                        Ruby = true;
+                        Sapphire = false;
+                        Emerald = false;
+                        other = false;
+                        break;
+                    default:
+                        FireRed = false;
+                        LeafGreen = false;
+                        Ruby = false;
+                        Sapphire = false;
+                        Emerald = false;
+                        other = true;
+                        break;
                 }
-            
+                if (other == true)
+                {
+                    DialogResult result = MessageBox.Show("This game cannot be identified. If this is a ROM with a custom ID but with the normal english offsets then procede with caution. If it is not, it may cause irreversible damage. Do you wish to continue?", "Warning", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.No)
+                    {
+                        other = false;
+                    }
+                    DialogResult result2 = MessageBox.Show("If this ROM is Fire Red (BPRE) based then click Yes. If it's Emerald (BPEE) then click no. Else open a new supported ROM with the open button.", "Warning", MessageBoxButtons.YesNo);
+                    if (result2 == DialogResult.No)
+                    {
+                        Emerald = true;
+                        other = false;
+                    }
+                    if (result2 == DialogResult.Yes)
+                    {
+                        FireRed = true;
+                        other = false;
+                    }
+                }
+                if (MrDS == true)
+                {
+                    button1.Enabled = false;
+                    long FRTitleLogo = 0x78a98;
+                    long FRTitleLogoRaw = 0x78a9c;
+                    long FRTitleBack = 0x78ab0;
+                    long FRTitleBackRaw = 0x78ab4;
+                    long FRTitleSprite = 0x78aa4;
+                    long FRTitleSpriteRaw = 0x78aa8;
+                    long FRStats = 0x1bc;
+                    long FRPName = 0x144;
+                    long FRType = 0x309c8;
+                    long FRAbill = 0xd8004;
+                    long FRLMoves = 0x43f84;
+                    long FRMNames = 0x148;
+                    long FREggM = 0x045C50;
+                    long FRTMCom = 0x43c68;
+                    long FRTMList = 0x125a8c;
+                    long FREvo = 0x42f6c;
+                    long FRFront = 0x128;
+                    long FRBack = 0x12c;
+                    long FRPal = 0x130;
+                    long FRSPal = 0x134;
+                    long FRDex = 0x88e34;
+                    long FRTutCom = 0x120c30;
+                    long FREnY = 0x11f4c;
+                    long FRPlaY = 0x74634;
+                    long FREnAlt = 0x356f8;
+                    long FRIconS = 0x138;
+                    long FRIconP = 0x13c;
+                    long FRIP = 0x8ab40;
+                    long FRNDex = 0x4323c;
+                    long FRFeet = 0x105e14;
+                    long FRWM = 0xc0330;
+                    AllOffsets.Enabled = true;
+                    Rom.Text = "MrDollSteak Base";
+                    fileLocation = ofd.FileName;
+                    HeaderCode.Text = PokeHelper.DisplayHeader(fileLocation, result1);
+                    //Logo
+                    br.BaseStream.Seek(FRTitleLogoRaw, SeekOrigin.Begin);
+                    PLogo.Text = PokeHelper.DisplayOffset2(FRTitleLogo, FRTitleLogoRaw, fileLocation, result1);
+                    Version.Enabled = false;
+                    TSprite.Enabled = true;
+                    //Titlebackground
+                    TBack.Text = PokeHelper.DisplayOffset2(FRTitleBack, FRTitleBackRaw, fileLocation, result1);
+                    //TitleSprite
+                    TSprite.Text = PokeHelper.DisplayOffset2(FRTitleSprite, FRTitleSpriteRaw, fileLocation, result1);
+                    //Poke locations
+                    Evo.Text = PokeHelper.DisplayOffset1(FREvo, fileLocation, result1);
+                    TMCom.Text = PokeHelper.DisplayOffset1(FRTMCom, fileLocation, result1);
+                    TMList.Text = PokeHelper.DisplayOffset1(FRTMList, fileLocation, result1);
+                    Eggs.Text = PokeHelper.DisplayOffset1(FREggM, fileLocation, result1);
+                    ANames.Text = PokeHelper.DisplayOffset1(FRMNames, fileLocation, result1);
+                    Moves.Text = PokeHelper.DisplayOffset1(FRLMoves, fileLocation, result1);
+                    Abillities.Text = PokeHelper.DisplayOffset1(FRAbill, fileLocation, result1);
+                    TNames.Text = PokeHelper.DisplayOffset1(FRType, fileLocation, result1);
+                    PNames.Text = PokeHelper.DisplayOffset1(FRPName, fileLocation, result1);
+                    Stats.Text = PokeHelper.DisplayOffset1(FRStats, fileLocation, result1);
+                    Front.Text = PokeHelper.DisplayOffset1(FRFront, fileLocation, result1);
+                    Back.Text = PokeHelper.DisplayOffset1(FRBack, fileLocation, result1);
+                    //Poke Locations 2
+                    Normal.Text = PokeHelper.DisplayOffset1(FRPal, fileLocation, result1);
+                    Shiny.Text = PokeHelper.DisplayOffset1(FRSPal, fileLocation, result1);
+                    Dex.Text = PokeHelper.DisplayOffset1(FRDex, fileLocation, result1);
+                    EnY.Text = PokeHelper.DisplayOffset1(FREnY, fileLocation, result1);
+                    PlaY.Text = PokeHelper.DisplayOffset1(FRPlaY, fileLocation, result1);
+                    EnAlt.Text = PokeHelper.DisplayOffset1(FREnAlt, fileLocation, result1);
+                    Tutor.Text = PokeHelper.DisplayOffset1(FRTutCom, fileLocation, result1);
+                    IconS.Text = PokeHelper.DisplayOffset1(FRIconS, fileLocation, result1);
+                    IconP.Text = PokeHelper.DisplayOffset1(FRIconP, fileLocation, result1);
+                    IP.Text = PokeHelper.DisplayOffset1(FRIP, fileLocation, result1);
+                    NDex.Text = PokeHelper.DisplayOffset1(FRNDex, fileLocation, result1);
+                    Feet.Text = PokeHelper.DisplayOffset1(FRFeet, fileLocation, result1);
+                    WM.Text = PokeHelper.DisplayOffset1(FRWM, fileLocation, result1);
+                }
+                if (FireRed == true)
+                {
+                    button1.Enabled = false;
+                    long FRTitleLogo = 0x78a98;
+                    long FRTitleLogoRaw = 0x78a9c;
+                    long FRTitleBack = 0x78ab0;
+                    long FRTitleBackRaw = 0x78ab4;
+                    long FRTitleSprite = 0x78aa4;
+                    long FRTitleSpriteRaw = 0x78aa8;
+                    long FRStats = 0x1bc;
+                    long FRPName = 0x144;
+                    long FRType = 0x309c8;
+                    long FRAbill = 0xd8004;
+                    long FRLMoves = 0x43f84;
+                    long FRMNames = 0x148;
+                    long FREggM = 0x045C50;
+                    long FRTMCom = 0x43c68;
+                    long FRTMList = 0x125a8c;
+                    long FREvo = 0x42f6c;
+                    long FRFront = 0x128;
+                    long FRBack = 0x12c;
+                    long FRPal = 0x130;
+                    long FRSPal = 0x134;
+                    long FRDex = 0x88e34;
+                    long FRTutCom = 0x120c30;
+                    long FREnY = 0x11f4c;
+                    long FRPlaY = 0x74634;
+                    long FREnAlt = 0x356f8;
+                    long FRIconS = 0x138;
+                    long FRIconP = 0x13c;
+                    long FRIP = 0x8ab40;
+                    long FRNDex = 0x4323c;
+                    long FRFeet = 0x105e14;
+                    long FRWM = 0xc0330;
+                    AllOffsets.Enabled = true;
+                    Rom.Text = "Fire Red";
+                    fileLocation = ofd.FileName;
+                    HeaderCode.Text = PokeHelper.DisplayHeader(fileLocation, result1);
+                    //Logo
+                    br.BaseStream.Seek(FRTitleLogoRaw, SeekOrigin.Begin);
+                    PLogo.Text = PokeHelper.DisplayOffset2(FRTitleLogo, FRTitleLogoRaw, fileLocation, result1);
+                    Version.Enabled = false;
+                    TSprite.Enabled = true;
+                    //Titlebackground
+                    TBack.Text = PokeHelper.DisplayOffset2(FRTitleBack, FRTitleBackRaw, fileLocation, result1);
+                    //TitleSprite
+                    TSprite.Text = PokeHelper.DisplayOffset2(FRTitleSprite, FRTitleSpriteRaw, fileLocation, result1);
+                    //Poke locations
+                    Evo.Text = PokeHelper.DisplayOffset1(FREvo, fileLocation, result1);
+                    TMCom.Text = PokeHelper.DisplayOffset1(FRTMCom, fileLocation, result1);
+                    TMList.Text = PokeHelper.DisplayOffset1(FRTMList, fileLocation, result1);
+                    Eggs.Text = PokeHelper.DisplayOffset1(FREggM, fileLocation, result1);
+                    ANames.Text = PokeHelper.DisplayOffset1(FRMNames, fileLocation, result1);
+                    Moves.Text = PokeHelper.DisplayOffset1(FRLMoves, fileLocation, result1);
+                    Abillities.Text = PokeHelper.DisplayOffset1(FRAbill, fileLocation, result1);
+                    TNames.Text = PokeHelper.DisplayOffset1(FRType, fileLocation, result1);
+                    PNames.Text = PokeHelper.DisplayOffset1(FRPName, fileLocation, result1);
+                    Stats.Text = PokeHelper.DisplayOffset1(FRStats, fileLocation, result1);
+                    Front.Text = PokeHelper.DisplayOffset1(FRFront, fileLocation, result1);
+                    Back.Text = PokeHelper.DisplayOffset1(FRBack, fileLocation, result1);
+                    //Poke Locations 2
+                    Normal.Text = PokeHelper.DisplayOffset1(FRPal, fileLocation, result1);
+                    Shiny.Text = PokeHelper.DisplayOffset1(FRSPal, fileLocation, result1);
+                    Dex.Text = PokeHelper.DisplayOffset1(FRDex, fileLocation, result1);
+                    EnY.Text = PokeHelper.DisplayOffset1(FREnY, fileLocation, result1);
+                    PlaY.Text = PokeHelper.DisplayOffset1(FRPlaY, fileLocation, result1);
+                    EnAlt.Text = PokeHelper.DisplayOffset1(FREnAlt, fileLocation, result1);
+                    Tutor.Text = PokeHelper.DisplayOffset1(FRTutCom, fileLocation, result1);
+                    IconS.Text = PokeHelper.DisplayOffset1(FRIconS, fileLocation, result1);
+                    IconP.Text = PokeHelper.DisplayOffset1(FRIconP, fileLocation, result1);
+                    IP.Text = PokeHelper.DisplayOffset1(FRIP, fileLocation, result1);
+                    NDex.Text = PokeHelper.DisplayOffset1(FRNDex, fileLocation, result1);
+                    Feet.Text = PokeHelper.DisplayOffset1(FRFeet, fileLocation, result1);
+                    WM.Text = PokeHelper.DisplayOffset1(FRWM, fileLocation, result1);
+                }
+                if (LeafGreen == true)
+                {
+                    Rom.Text = "Leaf Green";
+                    fileLocation = ofd.FileName;
+                    HeaderCode.Text = "Unsupported " + PokeHelper.DisplayHeader(fileLocation, result1);
+                }
+                if (other == true)
+                {
+                    Rom.Text = "Unidentified game";
+                    fileLocation = ofd.FileName;
+                    HeaderCode.Text = "Unsupported " + PokeHelper.DisplayHeader(fileLocation, result1);
+                }
+                if (Emerald == true)
+                {
+                    button1.Enabled = false;
+                    long EMTitleLogo = 0xaa94c;
+                    long EMTitleLogoRaw = 0xaa958;
+                    long EMTitleBack = 0xaa95c;
+                    long EMTitleBackRaw = 0xaa964;
+                    long EMTitleSprite = 0x540048;
+                    long EMTitleSpriteRaw = 0xaa98c;
+                    long EMStats = 0x1bc;//
+                    long EMPName = 0x144;//
+                    long EMType = 0x166f4;//
+                    long EMAbill = 0x1c0; //
+                    long EMLMoves = 0x6930c;//
+                    long EMMNames = 0x148; //
+                    long EMEggM = 0x703F0; //
+                    long EMTMCom = 0x6e048; //
+                    long EMTMList = 0x1b6d10; //
+                    long EMEvo = 0x6d140; //
+                    long EMEMont = 0x128; //
+                    long EMBack = 0x12c; //
+                    long EMPal = 0x130; //
+                    long EMSPal = 0x134; //
+                    long EMDex = 0xbfa20; //
+                    long EMTutCom = 0x1b2390; //
+                    long EMEnY = 0x2dc78; //
+                    long EMPlaY = 0xa5e8c; //
+                    long EMEnAlt = 0x5ee44; //
+                    long EMIconS = 0x138; //
+                    long EMIconP = 0x13c; //
+                    long EMIP = 0xc4208; //
+                    long EMNDex = 0x6d448; //
+                    long EMFeet = 0xc0dbc; //
+                    long EMWM = 0x122e14;
+                    long EMWM2 = 0x122e14;
+                    AllOffsets.Enabled = true;
+                    Rom.Text = "Emerald";
+                    fileLocation = ofd.FileName;
+                    HeaderCode.Text = PokeHelper.DisplayHeader(fileLocation, result1);
+                    //Logo
+                    br.BaseStream.Seek(EMTitleLogoRaw, SeekOrigin.Begin);
+                    PLogo.Text = PokeHelper.DisplayOffset2(EMTitleLogo, EMTitleLogoRaw, fileLocation, result1);
+                    Version.Text = PokeHelper.DisplayOffset2(EMTitleSprite, EMTitleSpriteRaw, fileLocation, result1);
+                    Version.Enabled = false;
+                    //Titlebackground
+                    TBack.Text = PokeHelper.DisplayOffset2(EMTitleBack, EMTitleBackRaw, fileLocation, result1);
+                    //TitleSprite
+                    TSprite.Enabled = false;
+                    //Poke locations
+                    Evo.Text = PokeHelper.DisplayOffset1(EMEvo, fileLocation, result1);
+                    TMCom.Text = PokeHelper.DisplayOffset1(EMTMCom, fileLocation, result1);
+                    TMList.Text = PokeHelper.DisplayOffset1(EMTMList, fileLocation, result1);
+                    Eggs.Text = PokeHelper.DisplayOffset1(EMEggM, fileLocation, result1);
+                    ANames.Text = PokeHelper.DisplayOffset1(EMMNames, fileLocation, result1);
+                    Moves.Text = PokeHelper.DisplayOffset1(EMLMoves, fileLocation, result1);
+                    Abillities.Text = PokeHelper.DisplayOffset1(EMAbill, fileLocation, result1);
+                    TNames.Text = PokeHelper.DisplayOffset1(EMType, fileLocation, result1);
+                    PNames.Text = PokeHelper.DisplayOffset1(EMPName, fileLocation, result1);
+                    Stats.Text = PokeHelper.DisplayOffset1(EMStats, fileLocation, result1);
+                    Front.Text = PokeHelper.DisplayOffset1(EMEMont, fileLocation, result1);
+                    Back.Text = PokeHelper.DisplayOffset1(EMBack, fileLocation, result1);
+                    //Poke Locations 2
+                    Normal.Text = PokeHelper.DisplayOffset1(EMPal, fileLocation, result1);
+                    Shiny.Text = PokeHelper.DisplayOffset1(EMSPal, fileLocation, result1);
+                    Dex.Text = PokeHelper.DisplayOffset1(EMDex, fileLocation, result1);
+                    EnY.Text = PokeHelper.DisplayOffset1(EMEnY, fileLocation, result1);
+                    PlaY.Text = PokeHelper.DisplayOffset1(EMPlaY, fileLocation, result1);
+                    EnAlt.Text = PokeHelper.DisplayOffset1(EMEnAlt, fileLocation, result1);
+                    Tutor.Text = PokeHelper.DisplayOffset1(EMTutCom, fileLocation, result1);
+                    IconS.Text = PokeHelper.DisplayOffset1(EMIconS, fileLocation, result1);
+                    IconP.Text = PokeHelper.DisplayOffset1(EMIconP, fileLocation, result1);
+                    IP.Text = PokeHelper.DisplayOffset1(EMIP, fileLocation, result1);
+                    NDex.Text = PokeHelper.DisplayOffset1(EMNDex, fileLocation, result1);
+                    Feet.Text = PokeHelper.DisplayOffset1(EMFeet, fileLocation, result1);
+                    //worldmap
+                    WM.Text = PokeHelper.DisplayOffset1(EMWM, fileLocation, result1);
+                }
+                if (Ruby == true)
+                {
+                    Rom.Text = "Ruby";
+                    fileLocation = ofd.FileName;
+                    HeaderCode.Text = "Unsupported " + PokeHelper.DisplayHeader(fileLocation, result1);
+                }
+                if (Sapphire == true)
+                {
+                    Rom.Text = "sapphire";
+                    fileLocation = ofd.FileName;
+                    HeaderCode.Text = "Unsupported " + PokeHelper.DisplayHeader(fileLocation, result1);
+                }
+                br.Close();
+            }
+
         }
 
         private void label9_Click(object sender, EventArgs e)
@@ -406,5 +409,137 @@ namespace WindowsFormsApplication7
             }
             catch { }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (FireRed == true)
+            {
+                string Code = "BPRE";
+                //G3HS
+                if (File.Exists("Pokeroms.ini"))
+                {
+                    var parser = new FileIniDataParser();
+                    IniData data = parser.ReadFile("PokeRoms.ini");
+                    data[Code]["pokebasestats"] = "0x" + Stats.Text;
+                    data[Code]["learnedmoves"] = "0x" + Moves.Text;
+                    data[Code]["attacknames"] = "0x" + ANames.Text;
+                    data[Code]["pokenames"] = "0x" + PNames.Text;
+                    data[Code]["typenames"] = "0x" + TNames.Text;
+                    data[Code]["abilities"] = "0x" + Abillities.Text;
+                    data[Code]["tmhmcompatibility"] = "0x" + TMCom.Text;
+                    data[Code]["tmlist"] = "0x" + TMList.Text;
+                    data[Code]["evolutiontable"] = "0x" + Evo.Text;
+                    data[Code]["pokdex"] = "0x" + Dex.Text;
+                    data[Code]["nationaldexorder"] = "0x" + NDex.Text;
+                    data[Code]["movetutotcomp"] = "0x" + Tutor.Text;
+                    data[Code]["frontspritetable"] = "0x" + Front.Text;
+                    data[Code]["backspritetable"] = "0x" + Back.Text;
+                    data[Code]["shinypalettetable"] = "0x" + Shiny.Text;
+                    data[Code]["frontpalettetable"] = "0x" + Normal.Text;
+                    data[Code]["enemyytable"] = "0x" + EnY.Text;
+                    data[Code]["playerytable"] = "0x" + PlaY.Text;
+                    data[Code]["enemyaltitudetable"] = "0x" + EnAlt.Text;
+                    data[Code]["iconspritetable"] = "0x" + IconS.Text;
+                    data[Code]["iconpalettetable"] = "0x" + IconP.Text;
+                    data[Code]["iconpalettes"] = "0x" + IP.Text;
+                    data[Code]["footprints"] = "0x" + Feet.Text;
+                    parser.WriteFile("PokeRoms.ini", data);
+                    //PGE
+                    if (File.Exists("Roms.ini"))
+                    {
+                        var parser2 = new FileIniDataParser();
+                        IniData data2 = parser2.ReadFile("Roms.ini");
+                        data2[Code]["PokemonData"] = Stats.Text;
+                        data2[Code]["learnedmoves"] = Moves.Text;
+                        data2[Code]["AttackNames"] = ANames.Text;
+                        data2[Code]["PokemonNames"] = PNames.Text;
+                        data2[Code]["AbillityNames"] = Abillities.Text;
+                        data2[Code]["TMHMCompatibility"] = TMCom.Text;
+                        data2[Code]["TMData"] = TMList.Text;
+                        data2[Code]["PokemonEvolutions"] = Evo.Text;
+                        data2[Code]["PokedexData"] = Dex.Text;
+                        data2[Code]["NationalDexTable"] = NDex.Text;
+                        data2[Code]["MoveTutorCompatibility"] = Tutor.Text;
+                        data2[Code]["PokemonFrontSprites"] = Front.Text;
+                        data2[Code]["PokemonBackSprites"] = Back.Text;
+                        data2[Code]["PokemonShinyPal"] = Shiny.Text;
+                        data2[Code]["PokemonNormalPal"] = Normal.Text;
+                        data2[Code]["EnemyYTable"] = EnY.Text;
+                        data2[Code]["PlayerYTable"] = PlaY.Text;
+                        data2[Code]["EnemyAltitudeTable"] = EnAlt.Text;
+                        data2[Code]["IconPointerTable"] = IconS.Text;
+                        data2[Code]["IconPalTable"] = IconP.Text;
+                        data[Code]["IconPals"] = IP.Text;
+                        data2[Code]["FootPrintTable"] = Feet.Text;
+                        parser2.WriteFile("Roms.ini", data2);
+                    }
+                }
+
+                if (Emerald == true)
+                {
+                    string Em = "BREE";
+                    //G3HS
+                    if (File.Exists("Pokeroms.ini"))
+                    {
+                        var parser = new FileIniDataParser();
+                        IniData data = parser.ReadFile("PokeRoms.ini");
+                        data[Em]["pokebasestats"] = "0x" + Stats.Text;
+                        data[Em]["learnedmoves"] = "0x" + Moves.Text;
+                        data[Em]["attacknames"] = "0x" + ANames.Text;
+                        data[Em]["pokenames"] = "0x" + PNames.Text;
+                        data[Em]["typenames"] = "0x" + TNames.Text;
+                        data[Em]["abilities"] = "0x" + Abillities.Text;
+                        data[Em]["tmhmcompatibility"] = "0x" + TMCom.Text;
+                        data[Em]["tmlist"] = "0x" + TMList.Text;
+                        data[Em]["evolutiontable"] = "0x" + Evo.Text;
+                        data[Em]["pokdex"] = "0x" + Dex.Text;
+                        data[Em]["nationaldexorder"] = "0x" + NDex.Text;
+                        data[Em]["movetutotcomp"] = "0x" + Tutor.Text;
+                        data[Em]["frontspritetable"] = "0x" + Front.Text;
+                        data[Em]["backspritetable"] = "0x" + Back.Text;
+                        data[Em]["shinypalettetable"] = "0x" + Shiny.Text;
+                        data[Em]["frontpalettetable"] = "0x" + Normal.Text;
+                        data[Em]["enemyytable"] = "0x" + EnY.Text;
+                        data[Em]["playerytable"] = "0x" + PlaY.Text;
+                        data[Em]["enemyaltitudetable"] = "0x" + EnAlt.Text;
+                        data[Em]["iconspritetable"] = "0x" + IconS.Text;
+                        data[Em]["iconpalettetable"] = "0x" + IconP.Text;
+                        data[Em]["iconpalettes"] = "0x" + IP.Text;
+                        data[Em]["footprints"] = "0x" + Feet.Text;
+                        parser.WriteFile("PokeRoms.ini", data);
+                        //PGE
+                        if (File.Exists("Roms.ini"))
+                        {
+                            var parser2 = new FileIniDataParser();
+                            IniData data2 = parser2.ReadFile("Roms.ini");
+                            data2[Em]["PokemonData"] = Stats.Text;
+                            data2[Em]["learnedmoves"] = Moves.Text;
+                            data2[Em]["AttackNames"] = ANames.Text;
+                            data2[Em]["PokemonNames"] = PNames.Text;
+                            data2[Em]["AbillityNames"] = Abillities.Text;
+                            data2[Em]["TMHMCompatibility"] = TMCom.Text;
+                            data2[Em]["TMData"] = TMList.Text;
+                            data2[Em]["PokemonEvolutions"] = Evo.Text;
+                            data2[Em]["PokedexData"] = Dex.Text;
+                            data2[Em]["NationalDexTable"] = NDex.Text;
+                            data2[Em]["MoveTutorCompatibility"] = Tutor.Text;
+                            data2[Em]["PokemonFrontSprites"] = Front.Text;
+                            data2[Em]["PokemonBackSprites"] = Back.Text;
+                            data2[Em]["PokemonShinyPal"] = Shiny.Text;
+                            data2[Em]["PokemonNormalPal"] = Normal.Text;
+                            data2[Em]["EnemyYTable"] = EnY.Text;
+                            data2[Em]["PlayerYTable"] = PlaY.Text;
+                            data2[Em]["EnemyAltitudeTable"] = EnAlt.Text;
+                            data2[Em]["IconPointerTable"] = IconS.Text;
+                            data2[Em]["IconPalTable"] = IconP.Text;
+                            data[Em]["IconPals"] = IP.Text;
+                            data2[Em]["FootPrintTable"] = Feet.Text;
+                            parser2.WriteFile("Roms.ini", data2);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
