@@ -21,3 +21,4 @@ C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\Win
 C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.application
 C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.exe
 C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\AOffset.pdb
+C:\Users\home\documents\visual studio 2013\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\Debug\WindowsFormsApplication7.csproj.ResolveComReference.cache

@@ -1511,11 +1511,12 @@
             this.linkLabel1.Size = new System.Drawing.Size(125, 13);
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Advanced Offsets v1.1.2";
+            this.linkLabel1.Text = "Advanced Offsets v1.2.1";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // button2
             // 
+            this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(372, 67);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);

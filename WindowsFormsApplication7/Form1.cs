@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.IO;
 using IniParser;
 using IniParser.Model;
+using Microsoft.VisualBasic;
 
 
 namespace WindowsFormsApplication7
@@ -35,7 +36,6 @@ namespace WindowsFormsApplication7
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             OpenFileDialog ofd = new OpenFileDialog();
             BB.Enabled = false;
             ofd.Filter = "GBA File (*.gba)|*.gba";
@@ -44,6 +44,7 @@ namespace WindowsFormsApplication7
                 string filePath = ofd.FileName;
                 BinaryReader br = new BinaryReader(File.OpenRead(ofd.FileName));
                 br.BaseStream.Seek(0xAC, SeekOrigin.Begin);
+                button2.Enabled = true;
                 switch (Encoding.UTF8.GetString(br.ReadBytes(4)))
                 {
                     case "MrDS":
@@ -326,7 +327,7 @@ namespace WindowsFormsApplication7
                     br.BaseStream.Seek(EMTitleLogoRaw, SeekOrigin.Begin);
                     PLogo.Text = PokeHelper.DisplayOffset2(EMTitleLogo, EMTitleLogoRaw, fileLocation, result1);
                     Version.Text = PokeHelper.DisplayOffset2(EMTitleSprite, EMTitleSpriteRaw, fileLocation, result1);
-                    Version.Enabled = false;
+                    Version.Enabled = true;
                     //Titlebackground
                     TBack.Text = PokeHelper.DisplayOffset2(EMTitleBack, EMTitleBackRaw, fileLocation, result1);
                     //TitleSprite
@@ -412,134 +413,71 @@ namespace WindowsFormsApplication7
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (FireRed == true)
-            {
-                string Code = "BPRE";
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Please Enter amount of Pokemon types in your ROM", "Types", "18", -1, -1);
+            string input2 = Microsoft.VisualBasic.Interaction.InputBox("Please Enter amount of Evolution slots per Pokemon in your ROM", "Evolution", "5", -1, -1);
+            string result = "";
+            string Code = PokeHelper.DisplayHeader(fileLocation, result);
+            string end = PokeHelper.DisplayHeader(fileLocation, result);
                 //G3HS
-                if (File.Exists("Pokeroms.ini"))
+                var parser = new FileIniDataParser();
+                IniData data = parser.ReadFile("PokeRoms.ini");
+                Ini.AddSection(end);
+                data[end]["pokebasestats"] = "0x" + Stats.Text;
+                data[end]["learnedmoves"] = "0x" + Moves.Text;
+                data[end]["attacknames"] = "0x" + ANames.Text;
+                data[end]["pokenames"] = "0x" + PNames.Text;
+                data[end]["typenames"] = "0x" + TNames.Text;
+                data[end]["abilities"] = "0x" + Abillities.Text;
+                data[end]["tmhmcompatibility"] = "0x" + TMCom.Text;
+                data[end]["tmlist"] = "0x" + TMList.Text;
+                data[end]["evolutiontable"] = "0x" + Evo.Text;
+                data[end]["pokdex"] = "0x" + Dex.Text;
+                data[end]["nationaldexorder"] = "0x" + NDex.Text;
+                data[end]["movetutorcomp"] = "0x" + Tutor.Text;
+                data[end]["frontspritetable"] = "0x" + Front.Text;
+                data[end]["backspritetable"] = "0x" + Back.Text;
+                data[end]["shinypalettetable"] = "0x" + Shiny.Text;
+                data[end]["frontpalettetable"] = "0x" + Normal.Text;
+                data[end]["enemyytable"] = "0x" + EnY.Text;
+                data[end]["playerytable"] = "0x" + PlaY.Text;
+                data[end]["enemyaltitudetable"] = "0x" + EnAlt.Text;
+                data[end]["iconspritetable"] = "0x" + IconS.Text;
+                data[end]["iconpalettetable"] = "0x" + IconP.Text;
+                data[end]["iconpalettes"] = "0x" + IP.Text;
+                data[end]["footprints"] = "0x" + Feet.Text;
+                data[end]["numberoftypes"] = input;
+                data[end]["evolutionsperpoke"] = input2;
+                parser.WriteFile("PokeRoms.ini", data);
+                //PGE
+                if (File.Exists("Roms.ini"))
                 {
-                    var parser = new FileIniDataParser();
-                    IniData data = parser.ReadFile("PokeRoms.ini");
-                    data[Code]["pokebasestats"] = "0x" + Stats.Text;
-                    data[Code]["learnedmoves"] = "0x" + Moves.Text;
-                    data[Code]["attacknames"] = "0x" + ANames.Text;
-                    data[Code]["pokenames"] = "0x" + PNames.Text;
-                    data[Code]["typenames"] = "0x" + TNames.Text;
-                    data[Code]["abilities"] = "0x" + Abillities.Text;
-                    data[Code]["tmhmcompatibility"] = "0x" + TMCom.Text;
-                    data[Code]["tmlist"] = "0x" + TMList.Text;
-                    data[Code]["evolutiontable"] = "0x" + Evo.Text;
-                    data[Code]["pokdex"] = "0x" + Dex.Text;
-                    data[Code]["nationaldexorder"] = "0x" + NDex.Text;
-                    data[Code]["movetutotcomp"] = "0x" + Tutor.Text;
-                    data[Code]["frontspritetable"] = "0x" + Front.Text;
-                    data[Code]["backspritetable"] = "0x" + Back.Text;
-                    data[Code]["shinypalettetable"] = "0x" + Shiny.Text;
-                    data[Code]["frontpalettetable"] = "0x" + Normal.Text;
-                    data[Code]["enemyytable"] = "0x" + EnY.Text;
-                    data[Code]["playerytable"] = "0x" + PlaY.Text;
-                    data[Code]["enemyaltitudetable"] = "0x" + EnAlt.Text;
-                    data[Code]["iconspritetable"] = "0x" + IconS.Text;
-                    data[Code]["iconpalettetable"] = "0x" + IconP.Text;
-                    data[Code]["iconpalettes"] = "0x" + IP.Text;
-                    data[Code]["footprints"] = "0x" + Feet.Text;
-                    parser.WriteFile("PokeRoms.ini", data);
-                    //PGE
-                    if (File.Exists("Roms.ini"))
-                    {
-                        var parser2 = new FileIniDataParser();
-                        IniData data2 = parser2.ReadFile("Roms.ini");
-                        data2[Code]["PokemonData"] = Stats.Text;
-                        data2[Code]["learnedmoves"] = Moves.Text;
-                        data2[Code]["AttackNames"] = ANames.Text;
-                        data2[Code]["PokemonNames"] = PNames.Text;
-                        data2[Code]["AbillityNames"] = Abillities.Text;
-                        data2[Code]["TMHMCompatibility"] = TMCom.Text;
-                        data2[Code]["TMData"] = TMList.Text;
-                        data2[Code]["PokemonEvolutions"] = Evo.Text;
-                        data2[Code]["PokedexData"] = Dex.Text;
-                        data2[Code]["NationalDexTable"] = NDex.Text;
-                        data2[Code]["MoveTutorCompatibility"] = Tutor.Text;
-                        data2[Code]["PokemonFrontSprites"] = Front.Text;
-                        data2[Code]["PokemonBackSprites"] = Back.Text;
-                        data2[Code]["PokemonShinyPal"] = Shiny.Text;
-                        data2[Code]["PokemonNormalPal"] = Normal.Text;
-                        data2[Code]["EnemyYTable"] = EnY.Text;
-                        data2[Code]["PlayerYTable"] = PlaY.Text;
-                        data2[Code]["EnemyAltitudeTable"] = EnAlt.Text;
-                        data2[Code]["IconPointerTable"] = IconS.Text;
-                        data2[Code]["IconPalTable"] = IconP.Text;
-                        data[Code]["IconPals"] = IP.Text;
-                        data2[Code]["FootPrintTable"] = Feet.Text;
-                        parser2.WriteFile("Roms.ini", data2);
-                    }
-                }
-
-                if (Emerald == true)
-                {
-                    string Em = "BREE";
-                    //G3HS
-                    if (File.Exists("Pokeroms.ini"))
-                    {
-                        var parser = new FileIniDataParser();
-                        IniData data = parser.ReadFile("PokeRoms.ini");
-                        data[Em]["pokebasestats"] = "0x" + Stats.Text;
-                        data[Em]["learnedmoves"] = "0x" + Moves.Text;
-                        data[Em]["attacknames"] = "0x" + ANames.Text;
-                        data[Em]["pokenames"] = "0x" + PNames.Text;
-                        data[Em]["typenames"] = "0x" + TNames.Text;
-                        data[Em]["abilities"] = "0x" + Abillities.Text;
-                        data[Em]["tmhmcompatibility"] = "0x" + TMCom.Text;
-                        data[Em]["tmlist"] = "0x" + TMList.Text;
-                        data[Em]["evolutiontable"] = "0x" + Evo.Text;
-                        data[Em]["pokdex"] = "0x" + Dex.Text;
-                        data[Em]["nationaldexorder"] = "0x" + NDex.Text;
-                        data[Em]["movetutotcomp"] = "0x" + Tutor.Text;
-                        data[Em]["frontspritetable"] = "0x" + Front.Text;
-                        data[Em]["backspritetable"] = "0x" + Back.Text;
-                        data[Em]["shinypalettetable"] = "0x" + Shiny.Text;
-                        data[Em]["frontpalettetable"] = "0x" + Normal.Text;
-                        data[Em]["enemyytable"] = "0x" + EnY.Text;
-                        data[Em]["playerytable"] = "0x" + PlaY.Text;
-                        data[Em]["enemyaltitudetable"] = "0x" + EnAlt.Text;
-                        data[Em]["iconspritetable"] = "0x" + IconS.Text;
-                        data[Em]["iconpalettetable"] = "0x" + IconP.Text;
-                        data[Em]["iconpalettes"] = "0x" + IP.Text;
-                        data[Em]["footprints"] = "0x" + Feet.Text;
-                        parser.WriteFile("PokeRoms.ini", data);
-                        //PGE
-                        if (File.Exists("Roms.ini"))
-                        {
-                            var parser2 = new FileIniDataParser();
-                            IniData data2 = parser2.ReadFile("Roms.ini");
-                            data2[Em]["PokemonData"] = Stats.Text;
-                            data2[Em]["learnedmoves"] = Moves.Text;
-                            data2[Em]["AttackNames"] = ANames.Text;
-                            data2[Em]["PokemonNames"] = PNames.Text;
-                            data2[Em]["AbillityNames"] = Abillities.Text;
-                            data2[Em]["TMHMCompatibility"] = TMCom.Text;
-                            data2[Em]["TMData"] = TMList.Text;
-                            data2[Em]["PokemonEvolutions"] = Evo.Text;
-                            data2[Em]["PokedexData"] = Dex.Text;
-                            data2[Em]["NationalDexTable"] = NDex.Text;
-                            data2[Em]["MoveTutorCompatibility"] = Tutor.Text;
-                            data2[Em]["PokemonFrontSprites"] = Front.Text;
-                            data2[Em]["PokemonBackSprites"] = Back.Text;
-                            data2[Em]["PokemonShinyPal"] = Shiny.Text;
-                            data2[Em]["PokemonNormalPal"] = Normal.Text;
-                            data2[Em]["EnemyYTable"] = EnY.Text;
-                            data2[Em]["PlayerYTable"] = PlaY.Text;
-                            data2[Em]["EnemyAltitudeTable"] = EnAlt.Text;
-                            data2[Em]["IconPointerTable"] = IconS.Text;
-                            data2[Em]["IconPalTable"] = IconP.Text;
-                            data[Em]["IconPals"] = IP.Text;
-                            data2[Em]["FootPrintTable"] = Feet.Text;
-                            parser2.WriteFile("Roms.ini", data2);
-                        }
-                    }
+                    var parser2 = new FileIniDataParser();
+                    IniData data2 = parser2.ReadFile("Roms.ini");
+                    data2[Code]["PokemonData"] = Stats.Text;
+                    data2[Code]["learnedmoves"] = Moves.Text;
+                    data2[Code]["AttackNames"] = ANames.Text;
+                    data2[Code]["PokemonNames"] = PNames.Text;
+                    data2[Code]["AbillityNames"] = Abillities.Text;
+                    data2[Code]["TMHMCompatibility"] = TMCom.Text;
+                    data2[Code]["TMData"] = TMList.Text;
+                    data2[Code]["PokemonEvolutions"] = Evo.Text;
+                    data2[Code]["PokedexData"] = Dex.Text;
+                    data2[Code]["NationalDexTable"] = NDex.Text;
+                    data2[Code]["MoveTutorCompatibility"] = Tutor.Text;
+                    data2[Code]["PokemonFrontSprites"] = Front.Text;
+                    data2[Code]["PokemonBackSprites"] = Back.Text;
+                    data2[Code]["PokemonShinyPal"] = Shiny.Text;
+                    data2[Code]["PokemonNormalPal"] = Normal.Text;
+                    data2[Code]["EnemyYTable"] = EnY.Text;
+                    data2[Code]["PlayerYTable"] = PlaY.Text;
+                    data2[Code]["EnemyAltitudeTable"] = EnAlt.Text;
+                    data2[Code]["IconPointerTable"] = IconS.Text;
+                    data2[Code]["IconPalTable"] = IconP.Text;
+                    data[Code]["IconPals"] = IP.Text;
+                    data2[Code]["FootPrintTable"] = Feet.Text;
+                    parser2.WriteFile("Roms.ini", data2);
                 }
             }
-        }
-
-    }
+           
+}
 }

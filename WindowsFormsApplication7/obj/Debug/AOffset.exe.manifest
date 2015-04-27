@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AOffset.exe" size="185856">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AOffset.exe" size="184832">
       <assemblyIdentity name="AOffset" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>y1XQKci/+h4xUWbob8uHkMP1GbulKIPzqOeWROpddic=</dsig:DigestValue>
+        <dsig:DigestValue>tbJ7SqknFa6ep22IFK1NB6htqDJI5WkhrmWKpV1+wJo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
