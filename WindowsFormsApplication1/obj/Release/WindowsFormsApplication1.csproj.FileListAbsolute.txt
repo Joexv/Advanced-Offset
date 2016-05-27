@@ -1,0 +1,12 @@
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Release\A-Offset 2.0 Alpha.exe.config
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Release\A-Offset 2.0 Alpha.XML
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Release\A-Offset 2.0 Alpha.exe
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Release\A-Offset 2.0 Alpha.pdb
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Release\A-Offset 2.0 Alpha.exe.CodeAnalysisLog.xml
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Release\A-Offset 2.0 Alpha.exe.lastcodeanalysissucceeded
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Release\AOffset.Properties.Resources.resources
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Release\A-Offset 2.0 Alpha.exe
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Release\A-Offset 2.0 Alpha.pdb

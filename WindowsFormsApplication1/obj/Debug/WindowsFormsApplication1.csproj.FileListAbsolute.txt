@@ -1,0 +1,27 @@
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+c:\users\joexv\documents\visual studio 2015\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+H:\Source Code\A-Offset\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+H:\Source Code\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+H:\Source Code\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+H:\Source Code\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+H:\Source Code\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+H:\Source Code\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+H:\Source Code\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+H:\Source Code\A-Offset\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+H:\Source Code\A-Offset\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Joexv\Desktop\A-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
