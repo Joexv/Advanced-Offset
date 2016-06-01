@@ -605,7 +605,7 @@ namespace WindowsFormsApplication1
             string Abilities1 = Interaction.InputBox("Amount of Abilities?", "", "76");
             string Evolutions1 = Interaction.InputBox("Amount of Evolutions Per Mon?", "", "5");
             
-            DDXMLWrite(HeaderCode.Text, "NumberOfMoves", Moves1);
+            DDXMLWrite(HeaderCode.Text, "NumberOfAttacks=", Moves1);
             DDXMLWrite(HeaderCode.Text, "numberoftypes", Type1);
             DDXMLWrite(HeaderCode.Text, "evolutionsPerMon", Evolutions1);
             DDXMLWrite(HeaderCode.Text, "numberofabilities", Abilities1);
@@ -654,7 +654,7 @@ namespace WindowsFormsApplication1
                 sw.WriteLine("NumberOfItems=375");
                 br.Close();
             }
-            sw.WriteLine("NumberOfMoves=" + Interaction.InputBox("Amount of moves?", "", "355"));
+            sw.WriteLine("NumberOfAttacks=" + Interaction.InputBox("Amount of moves?", "", "355"));
             sw.WriteLine("MoveTutorAttacks = 459B60");
             sw.WriteLine("NumberOfMoveTutorAttacks = 16");
             sw.WriteLine("PokemonNames=" + DisplayOffset3(FRPName, ROM, result1));
