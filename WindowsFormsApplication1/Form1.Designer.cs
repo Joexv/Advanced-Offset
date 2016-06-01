@@ -102,9 +102,11 @@
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.ItemData = new System.Windows.Forms.Label();
             this.Items = new System.Windows.Forms.Label();
             this.TypeEff = new System.Windows.Forms.Label();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -163,8 +165,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.label27 = new System.Windows.Forms.Label();
-            this.ItemData = new System.Windows.Forms.Label();
             this.AllOffsets.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Tables.SuspendLayout();
@@ -912,10 +912,19 @@
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Table";
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(7, 60);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(53, 13);
+            this.label27.TabIndex = 2;
+            this.label27.Text = "Item Data";
+            // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(10, 38);
+            this.label26.Location = new System.Drawing.Point(7, 38);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(63, 13);
             this.label26.TabIndex = 1;
@@ -943,6 +952,14 @@
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Offsets";
             this.groupBox15.Enter += new System.EventHandler(this.groupBox15_Enter);
+            // 
+            // ItemData
+            // 
+            this.ItemData.AutoSize = true;
+            this.ItemData.Location = new System.Drawing.Point(7, 60);
+            this.ItemData.Name = "ItemData";
+            this.ItemData.Size = new System.Drawing.Size(0, 13);
+            this.ItemData.TabIndex = 15;
             // 
             // Items
             // 
@@ -1443,10 +1460,10 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(6, 16);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(75, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(93, 13);
             this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "A-Offsets A-v2";
+            this.linkLabel1.Text = "A-Offsets B-v2.0.1";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // HeaderCode
@@ -1522,23 +1539,6 @@
             this.button4.Text = "Create PGE ini";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(10, 60);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(53, 13);
-            this.label27.TabIndex = 2;
-            this.label27.Text = "Item Data";
-            // 
-            // ItemData
-            // 
-            this.ItemData.AutoSize = true;
-            this.ItemData.Location = new System.Drawing.Point(7, 60);
-            this.ItemData.Name = "ItemData";
-            this.ItemData.Size = new System.Drawing.Size(0, 13);
-            this.ItemData.TabIndex = 15;
             // 
             // Form1
             // 

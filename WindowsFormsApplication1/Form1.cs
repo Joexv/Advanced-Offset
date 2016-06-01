@@ -427,6 +427,7 @@ namespace WindowsFormsApplication1
                 string Pokemon = Interaction.InputBox("Amount of Pokemon?", "", "412");
                 DDXMLWrite(HeaderCode.Text, "numberofpokes", Pokemon);
                 MessageBox.Show("Document edited.");
+                br.Close();
 
             }
             else
@@ -584,6 +585,7 @@ namespace WindowsFormsApplication1
                 int vOut2 = BitConverter.ToInt32(vIn, 0);
                 result = vOut2.ToString().ToUpper();
                 DDXMLWrite(HeaderCode.Text, "numberofitems", result);
+                br.Close();
             }
 
             if (Emerald == true)
@@ -595,6 +597,7 @@ namespace WindowsFormsApplication1
                 int vOut2 = BitConverter.ToInt32(vIn, 0);
                 result = vOut2.ToString().ToUpper();
                 DDXMLWrite(HeaderCode.Text, "numberofitems", "375");
+                br.Close();
             }
 
             string Type1 = Interaction.InputBox("Amount of Types?", "", "18");
@@ -602,7 +605,7 @@ namespace WindowsFormsApplication1
             string Abilities1 = Interaction.InputBox("Amount of Abilities?", "", "76");
             string Evolutions1 = Interaction.InputBox("Amount of Evolutions Per Mon?", "", "5");
             
-            DDXMLWrite(HeaderCode.Text, "numberofattacks", Moves1);
+            DDXMLWrite(HeaderCode.Text, "NumberOfMoves", Moves1);
             DDXMLWrite(HeaderCode.Text, "numberoftypes", Type1);
             DDXMLWrite(HeaderCode.Text, "evolutionsPerMon", Evolutions1);
             DDXMLWrite(HeaderCode.Text, "numberofabilities", Abilities1);
@@ -616,15 +619,15 @@ namespace WindowsFormsApplication1
 
 
 
-            StreamWriter sw = new StreamWriter(ROM + ".ini", true);
+            StreamWriter sw = new StreamWriter(Path.GetFileNameWithoutExtension(ROM) + ".ini", true);
             sw.WriteLine("[BPRE]");
-            sw.WriteLine("ROMName=" + ROM);
+            sw.WriteLine("ROMName=" + Path.GetFileNameWithoutExtension(ROM));
 
             sw.WriteLine("ItemData=" + DisplayOffset3(FRItemData, ROM, result1));
             sw.WriteLine("AttackNames=" + DisplayOffset3(FRMNames, ROM, result1));
-            sw.WriteLine("TMData = " + DisplayOffset3(FRTMList, ROM, result1));
-            sw.WriteLine("TotalTMsPlusHMs = 58");
-            sw.WriteLine("TotalTMs= 50");
+            sw.WriteLine("TMData=" + DisplayOffset3(FRTMList, ROM, result1));
+            sw.WriteLine("TotalTMsPlusHMs=58");
+            sw.WriteLine("TotalTMs=50");
             sw.WriteLine("ItemIMGData = 3D4294");
             long NumberofItemsOff;
             string result = "";
@@ -636,7 +639,8 @@ namespace WindowsFormsApplication1
                 byte[] vIn = br.ReadBytes(4);
                 int vOut2 = BitConverter.ToInt32(vIn, 0);
                 result = vOut2.ToString();
-                sw.WriteLine("NumberOfItems = " + result);
+                sw.WriteLine("NumberOfItems=" + result);
+                br.Close();
             }
 
             if (Emerald == true)
@@ -647,147 +651,149 @@ namespace WindowsFormsApplication1
                 byte[] vIn = br.ReadBytes(4);
                 int vOut2 = BitConverter.ToInt32(vIn, 0);
                 result = vOut2.ToString();
-                sw.WriteLine("NumberOfItems = 375");
-            }            
+                sw.WriteLine("NumberOfItems=375");
+                br.Close();
+            }
+            sw.WriteLine("NumberOfMoves=" + Interaction.InputBox("Amount of moves?", "", "355"));
             sw.WriteLine("MoveTutorAttacks = 459B60");
             sw.WriteLine("NumberOfMoveTutorAttacks = 16");
-            sw.WriteLine("PokemonNames = " + DisplayOffset3(FRPName, ROM, result1));
-            sw.WriteLine("NumberOfPokemon = " + Interaction.InputBox("Amount of Pokemon?", "", "412"));
-            sw.WriteLine("NationalDexTable = " + DisplayOffset3(FRNDex, ROM, result1));
+            sw.WriteLine("PokemonNames=" + DisplayOffset3(FRPName, ROM, result1));
+            sw.WriteLine("NumberOfPokemon=" + Interaction.InputBox("Amount of Pokemon?", "", "412"));
+            sw.WriteLine("NationalDexTable=" + DisplayOffset3(FRNDex, ROM, result1));
             sw.WriteLine("SecondDexTable = 251CB8");
-            sw.WriteLine("PokedexData = " + DisplayOffset3(FRDex, ROM, result1));
+            sw.WriteLine("PokedexData=" + DisplayOffset3(FRDex, ROM, result1));
             sw.WriteLine("NumberOfDexEntries = 387");
-            sw.WriteLine("PokemonData = " + DisplayOffset3(FRStats, ROM, result1));
-            sw.WriteLine("AbilityNames = " + DisplayOffset3(FRAbill, ROM, result1));
-            sw.WriteLine("NumberOfAbilities = " + Interaction.InputBox("Amount of Abilities?", "", "76"));
+            sw.WriteLine("PokemonData=" + DisplayOffset3(FRStats, ROM, result1));
+            sw.WriteLine("AbilityNames=" + DisplayOffset3(FRAbill, ROM, result1));
+            sw.WriteLine("NumberOfAbilities=" + Interaction.InputBox("Amount of Abilities?", "", "76"));
             sw.WriteLine("Pointer2PointersToMapBanks = 5524C");
-            sw.WriteLine("OriginalBankPointer0 = 352004");
-            sw.WriteLine("OriginalBankPointer1 = 352018");
-            sw.WriteLine("OriginalBankPointer2 = 352204");
-            sw.WriteLine("OriginalBankPointer3 = 3522F4");
-            sw.WriteLine("OriginalBankPointer4 = 3523FC");
-            sw.WriteLine("OriginalBankPointer5 = 35240C");
-            sw.WriteLine("OriginalBankPointer6 = 352424");
-            sw.WriteLine("OriginalBankPointer7 = 352444");
-            sw.WriteLine("OriginalBankPointer8 = 35246C");
-            sw.WriteLine("OriginalBankPointer9 = 352484");
-            sw.WriteLine("OriginalBankPointer10 = 3524A4");
-            sw.WriteLine("OriginalBankPointer11 = 3524F4");
-            sw.WriteLine("OriginalBankPointer12 = 35251C");
-            sw.WriteLine("OriginalBankPointer13 = 35253C");
-            sw.WriteLine("OriginalBankPointer14 = 352544");
-            sw.WriteLine("OriginalBankPointer15 = 35256C");
-            sw.WriteLine("OriginalBankPointer16 = 35257C");
-            sw.WriteLine("OriginalBankPointer17 = 352584");
-            sw.WriteLine("OriginalBankPointer18 = 35258C");
-            sw.WriteLine("OriginalBankPointer19 = 352594");
-            sw.WriteLine("OriginalBankPointer20 = 352598");
-            sw.WriteLine("OriginalBankPointer21 = 35259C");
-            sw.WriteLine("OriginalBankPointer22 = 3525A4");
-            sw.WriteLine("OriginalBankPointer23 = 3525AC");
-            sw.WriteLine("OriginalBankPointer24 = 3525B8");
-            sw.WriteLine("OriginalBankPointer25 = 3525C0");
-            sw.WriteLine("OriginalBankPointer26 = 3525CC");
-            sw.WriteLine("OriginalBankPointer27 = 3525D4");
-            sw.WriteLine("OriginalBankPointer28 = 3525D8");
-            sw.WriteLine("OriginalBankPointer29 = 3525DC");
-            sw.WriteLine("OriginalBankPointer30 = 3525E0");
-            sw.WriteLine("OriginalBankPointer31 = 3525E4");
-            sw.WriteLine("OriginalBankPointer32 = 352600");
-            sw.WriteLine("OriginalBankPointer33 = 352614");
-            sw.WriteLine("OriginalBankPointer34 = 352628");
-            sw.WriteLine("OriginalBankPointer35 = 352648");
-            sw.WriteLine("OriginalBankPointer36 = 352668");
-            sw.WriteLine("OriginalBankPointer37 = 35267C");
-            sw.WriteLine("OriginalBankPointer38 = 352690");
-            sw.WriteLine("OriginalBankPointer39 = 352694");
-            sw.WriteLine("OriginalBankPointer40 = 352698");
-            sw.WriteLine("OriginalBankPointer41 = 35269C");
-            sw.WriteLine("OriginalBankPointer42 = 3526A4");
-            sw.WriteLine("NumberOfMapsInBank0 = 4");
-            sw.WriteLine("NumberOfMapsInBank1 = 122");
-            sw.WriteLine("NumberOfMapsInBank2 = 59");
-            sw.WriteLine("NumberOfMapsInBank3 = 65");
-            sw.WriteLine("NumberOfMapsInBank4 = 3");
-            sw.WriteLine("NumberOfMapsInBank5 = 5");
-            sw.WriteLine("NumberOfMapsInBank6 = 7");
-            sw.WriteLine("NumberOfMapsInBank7 = 9");
-            sw.WriteLine("NumberOfMapsInBank8 = 5");
-            sw.WriteLine("NumberOfMapsInBank9 = 7");
-            sw.WriteLine("NumberOfMapsInBank10 = 19");
-            sw.WriteLine("NumberOfMapsInBank11 = 9");
-            sw.WriteLine("NumberOfMapsInBank12 = 7");
-            sw.WriteLine("NumberOfMapsInBank13 = 1");
-            sw.WriteLine("NumberOfMapsInBank14 = 9");
-            sw.WriteLine("NumberOfMapsInBank15 = 3");
-            sw.WriteLine("NumberOfMapsInBank16 = 1");
-            sw.WriteLine("NumberOfMapsInBank17 = 1");
-            sw.WriteLine("NumberOfMapsInBank18 = 1");
-            sw.WriteLine("NumberOfMapsInBank19 = 0");
-            sw.WriteLine("NumberOfMapsInBank20 = 0");
-            sw.WriteLine("NumberOfMapsInBank21 = 1");
-            sw.WriteLine("NumberOfMapsInBank22 = 1");
-            sw.WriteLine("NumberOfMapsInBank23 = 2");
-            sw.WriteLine("NumberOfMapsInBank24 = 1");
-            sw.WriteLine("NumberOfMapsInBank25 = 2");
-            sw.WriteLine("NumberOfMapsInBank26 = 1");
-            sw.WriteLine("NumberOfMapsInBank27 = 0");
-            sw.WriteLine("NumberOfMapsInBank28 = 0");
-            sw.WriteLine("NumberOfMapsInBank29 = 0");
-            sw.WriteLine("NumberOfMapsInBank30 = 0");
-            sw.WriteLine("NumberOfMapsInBank31 = 6");
-            sw.WriteLine("NumberOfMapsInBank32 = 4");
-            sw.WriteLine("NumberOfMapsInBank33 = 4");
-            sw.WriteLine("NumberOfMapsInBank34 = 7");
-            sw.WriteLine("NumberOfMapsInBank35 = 7");
-            sw.WriteLine("NumberOfMapsInBank36 = 4");
-            sw.WriteLine("NumberOfMapsInBank37 = 4");
-            sw.WriteLine("NumberOfMapsInBank38 = 0");
-            sw.WriteLine("NumberOfMapsInBank39 = 0");
-            sw.WriteLine("NumberOfMapsInBank40 = 0");
-            sw.WriteLine("NumberOfMapsInBank41 = 1");
-            sw.WriteLine("NumberOfMapsInBank42 = 0");
-            sw.WriteLine("MapLabelData = 3F1CAC");
-            sw.WriteLine("NumberOfMapLabels = 109");
-            sw.WriteLine("PokemonFrontSprites = " + DisplayOffset3(FRFront, ROM, result1));
-            sw.WriteLine("PokemonBackSprites = " + DisplayOffset3(FRBack, ROM, result1));
-            sw.WriteLine("PokemonNormalPal = " + DisplayOffset3(FRPal, ROM, result1));
-            sw.WriteLine("PokemonShinyPal = " + DisplayOffset3(FRSPal, ROM, result1));
-            sw.WriteLine("IconPointerTable = " + DisplayOffset3(FRIconS, ROM, result1));
-            sw.WriteLine("IconPalTable = " + DisplayOffset3(FRIconP, ROM, result1));
-            sw.WriteLine("CryTable = 48C914"); //
-            sw.WriteLine("CryTable2 = 48DB44"); //
-            sw.WriteLine("CryConversionTable = 2539D4"); //
-            sw.WriteLine("FootPrintTable = " + DisplayOffset3(FRFeet, ROM, result1));
-            sw.WriteLine("PokemonAttackTable = " + DisplayOffset3(FRLMoves, ROM, result1));
-            sw.WriteLine("PokemonEvolutions = " + DisplayOffset3(FREvo, ROM, result1));
-            sw.WriteLine("TMHMCompatibility = " + DisplayOffset3(FRTMCom, ROM, result1));
+            sw.WriteLine("OriginalBankPointer0=352004");
+            sw.WriteLine("OriginalBankPointer1=352018");
+            sw.WriteLine("OriginalBankPointer2=352204");
+            sw.WriteLine("OriginalBankPointer3=3522F4");
+            sw.WriteLine("OriginalBankPointer4=3523FC");
+            sw.WriteLine("OriginalBankPointer5=35240C");
+            sw.WriteLine("OriginalBankPointer6=352424");
+            sw.WriteLine("OriginalBankPointer7=352444");
+            sw.WriteLine("OriginalBankPointer8=35246C");
+            sw.WriteLine("OriginalBankPointer9=352484");
+            sw.WriteLine("OriginalBankPointer10=3524A4");
+            sw.WriteLine("OriginalBankPointer11=3524F4");
+            sw.WriteLine("OriginalBankPointer12=35251C");
+            sw.WriteLine("OriginalBankPointer13=35253C");
+            sw.WriteLine("OriginalBankPointer14=352544");
+            sw.WriteLine("OriginalBankPointer15=35256C");
+            sw.WriteLine("OriginalBankPointer16=35257C");
+            sw.WriteLine("OriginalBankPointer17=352584");
+            sw.WriteLine("OriginalBankPointer18=35258C");
+            sw.WriteLine("OriginalBankPointer19=352594");
+            sw.WriteLine("OriginalBankPointer20=352598");
+            sw.WriteLine("OriginalBankPointer21=35259C");
+            sw.WriteLine("OriginalBankPointer22=3525A4");
+            sw.WriteLine("OriginalBankPointer23=3525AC");
+            sw.WriteLine("OriginalBankPointer24=3525B8");
+            sw.WriteLine("OriginalBankPointer25=3525C0");
+            sw.WriteLine("OriginalBankPointer26=3525CC");
+            sw.WriteLine("OriginalBankPointer27=3525D4");
+            sw.WriteLine("OriginalBankPointer28=3525D8");
+            sw.WriteLine("OriginalBankPointer29=3525DC");
+            sw.WriteLine("OriginalBankPointer30=3525E0");
+            sw.WriteLine("OriginalBankPointer31=3525E4");
+            sw.WriteLine("OriginalBankPointer32=352600");
+            sw.WriteLine("OriginalBankPointer33=352614");
+            sw.WriteLine("OriginalBankPointer34=352628");
+            sw.WriteLine("OriginalBankPointer35=352648");
+            sw.WriteLine("OriginalBankPointer36=352668");
+            sw.WriteLine("OriginalBankPointer37=35267C");
+            sw.WriteLine("OriginalBankPointer38=352690");
+            sw.WriteLine("OriginalBankPointer39=352694");
+            sw.WriteLine("OriginalBankPointer40=352698");
+            sw.WriteLine("OriginalBankPointer41=35269C");
+            sw.WriteLine("OriginalBankPointer42=3526A4");
+            sw.WriteLine("NumberOfMapsInBank0=4");
+            sw.WriteLine("NumberOfMapsInBank1=122");
+            sw.WriteLine("NumberOfMapsInBank2=59");
+            sw.WriteLine("NumberOfMapsInBank3=65");
+            sw.WriteLine("NumberOfMapsInBank4=3");
+            sw.WriteLine("NumberOfMapsInBank5=5");
+            sw.WriteLine("NumberOfMapsInBank6=7");
+            sw.WriteLine("NumberOfMapsInBank7=9");
+            sw.WriteLine("NumberOfMapsInBank8=5");
+            sw.WriteLine("NumberOfMapsInBank9=7");
+            sw.WriteLine("NumberOfMapsInBank10=19");
+            sw.WriteLine("NumberOfMapsInBank11=9");
+            sw.WriteLine("NumberOfMapsInBank12=7");
+            sw.WriteLine("NumberOfMapsInBank13=1");
+            sw.WriteLine("NumberOfMapsInBank14=9");
+            sw.WriteLine("NumberOfMapsInBank15=3");
+            sw.WriteLine("NumberOfMapsInBank16=1");
+            sw.WriteLine("NumberOfMapsInBank17=1");
+            sw.WriteLine("NumberOfMapsInBank18=1");
+            sw.WriteLine("NumberOfMapsInBank19=0");
+            sw.WriteLine("NumberOfMapsInBank20=0");
+            sw.WriteLine("NumberOfMapsInBank21=1");
+            sw.WriteLine("NumberOfMapsInBank22=1");
+            sw.WriteLine("NumberOfMapsInBank23=2");
+            sw.WriteLine("NumberOfMapsInBank24=1");
+            sw.WriteLine("NumberOfMapsInBank25=2");
+            sw.WriteLine("NumberOfMapsInBank26=1");
+            sw.WriteLine("NumberOfMapsInBank27=0");
+            sw.WriteLine("NumberOfMapsInBank28=0");
+            sw.WriteLine("NumberOfMapsInBank29=0");
+            sw.WriteLine("NumberOfMapsInBank30=0");
+            sw.WriteLine("NumberOfMapsInBank31=6");
+            sw.WriteLine("NumberOfMapsInBank32=4");
+            sw.WriteLine("NumberOfMapsInBank33=4");
+            sw.WriteLine("NumberOfMapsInBank34=7");
+            sw.WriteLine("NumberOfMapsInBank35=7");
+            sw.WriteLine("NumberOfMapsInBank36=4");
+            sw.WriteLine("NumberOfMapsInBank37=4");
+            sw.WriteLine("NumberOfMapsInBank38=0");
+            sw.WriteLine("NumberOfMapsInBank39=0");
+            sw.WriteLine("NumberOfMapsInBank40=0");
+            sw.WriteLine("NumberOfMapsInBank41=1");
+            sw.WriteLine("NumberOfMapsInBank42=0");
+            sw.WriteLine("MapLabelData=3F1CAC");
+            sw.WriteLine("NumberOfMapLabels=109");
+            sw.WriteLine("PokemonFrontSprites=" + DisplayOffset3(FRFront, ROM, result1));
+            sw.WriteLine("PokemonBackSprites=" + DisplayOffset3(FRBack, ROM, result1));
+            sw.WriteLine("PokemonNormalPal=" + DisplayOffset3(FRPal, ROM, result1));
+            sw.WriteLine("PokemonShinyPal=" + DisplayOffset3(FRSPal, ROM, result1));
+            sw.WriteLine("IconPointerTable=" + DisplayOffset3(FRIconS, ROM, result1));
+            sw.WriteLine("IconPalTable=" + DisplayOffset3(FRIconP, ROM, result1));
+            sw.WriteLine("CryTable=48C914"); //
+            sw.WriteLine("CryTable2=48DB44"); //
+            sw.WriteLine("CryConversionTable=2539D4"); //
+            sw.WriteLine("FootPrintTable=" + DisplayOffset3(FRFeet, ROM, result1));
+            sw.WriteLine("PokemonAttackTable=" + DisplayOffset3(FRLMoves, ROM, result1));
+            sw.WriteLine("PokemonEvolutions=" + DisplayOffset3(FREvo, ROM, result1));
+            sw.WriteLine("TMHMCompatibility=" + DisplayOffset3(FRTMCom, ROM, result1));
             sw.WriteLine("TMHMLenPerPoke = 8");
-            sw.WriteLine("MoveTutorCompatibility = " + DisplayOffset3(FRTutCom, ROM, result1));
-            sw.WriteLine("EnemyYTable = " + DisplayOffset3(FREnY, ROM, result1));
-            sw.WriteLine("PlayerYTable = " + DisplayOffset3(FRPlaY, ROM, result1));
-            sw.WriteLine("EnemyAltitudeTable = " + DisplayOffset3(FREnAlt, ROM, result1));
-            sw.WriteLine("AttackData = 250C04"); //
-            sw.WriteLine("AttackDescriptionTable = 4886E8"); //
-            sw.WriteLine("AbilityDescriptionTable = 24FB08"); //
-            sw.WriteLine("AttackAnimationTable = 1C68F4"); //
-            sw.WriteLine("IconPals = " + DisplayOffset3(FRIP, ROM, result1));
-            sw.WriteLine("JamboLearnableMovesTerm = 0000FF");
-            sw.WriteLine("StartSearchingForSpaceOffset = 71A240");
-            sw.WriteLine("FreeSpaceSearchInterval = 100");
-            sw.WriteLine("NumberOfEvolutionsPerPokemon = " + Interaction.InputBox("Amount of Evolutions Per Mon?", "", "5"));
-            sw.WriteLine("NumberOfEvolutionTypes = 15");
+            sw.WriteLine("MoveTutorCompatibility=" + DisplayOffset3(FRTutCom, ROM, result1));
+            sw.WriteLine("EnemyYTable=" + DisplayOffset3(FREnY, ROM, result1));
+            sw.WriteLine("PlayerYTable=" + DisplayOffset3(FRPlaY, ROM, result1));
+            sw.WriteLine("EnemyAltitudeTable=" + DisplayOffset3(FREnAlt, ROM, result1));
+            sw.WriteLine("AttackData=250C04"); //
+            sw.WriteLine("AttackDescriptionTable=4886E8"); //
+            sw.WriteLine("AbilityDescriptionTable=24FB08"); //
+            sw.WriteLine("AttackAnimationTable=1C68F4"); //
+            sw.WriteLine("IconPals=" + DisplayOffset3(FRIP, ROM, result1));
+            sw.WriteLine("JamboLearnableMovesTerm=0000FF");
+            sw.WriteLine("StartSearchingForSpaceOffset=71A240");
+            sw.WriteLine("FreeSpaceSearchInterval=100");
+            sw.WriteLine("NumberOfEvolutionsPerPokemon=" + Interaction.InputBox("Amount of Evolutions Per Mon?", "", "5"));
+            sw.WriteLine("NumberOfEvolutionTypes=15");
             sw.WriteLine("EvolutionName0 = None");
             sw.WriteLine("EvolutionName1 = Happiness");
             sw.WriteLine("EvolutionName2 = Happiness(Day)");
             sw.WriteLine("EvolutionName3 = Happiness(Night)");
             sw.WriteLine("EvolutionName4 = Level");
             sw.WriteLine("EvolutionName5 = Trade");
-            sw.WriteLine("EvolutionName6 = Trade w / Item");
+            sw.WriteLine("EvolutionName6 = Trade w/ Item");
             sw.WriteLine("EvolutionName7 = Item");
-            sw.WriteLine("EvolutionName8 = Atk over Def");
-            sw.WriteLine("EvolutionName9 = Atk = Def");
-            sw.WriteLine("EvolutionName10 = Atk under Def");
+            sw.WriteLine("EvolutionName8 = Atk>Def");
+            sw.WriteLine("EvolutionName9 = Atk=Def");
+            sw.WriteLine("EvolutionName10 = Atk<Def");
             sw.WriteLine("EvolutionName11 = High Personality");
             sw.WriteLine("EvolutionName12 = Low Personality");
             sw.WriteLine("EvolutionName13 = Allow Pokemon Creation");
@@ -809,25 +815,25 @@ namespace WindowsFormsApplication1
             sw.WriteLine("Evolution13Param = evolvesbutnoparms");
             sw.WriteLine("Evolution14Param = level");
             sw.WriteLine("Evolution15Param = evolvesbasedonvalue");
-            sw.WriteLine("EggMoveTable = " + DisplayOffset3(FREggM, ROM, result1));
-            sw.WriteLine("EggMoveTableLimiter = 45CC4");
-            sw.WriteLine("HabitatTable = 452C4C"); //
-            sw.WriteLine("ItemAnimationTable = 45FD54");
-            sw.WriteLine("TrainerTable = 23EAF0");
-            sw.WriteLine("NumberOfTrainers = 742");
-            sw.WriteLine("TrainerClasses = 23E558");
-            sw.WriteLine("NumberOfTrainerClasses = 6B");
-            sw.WriteLine("TrainerImageTable = 23957C");
-            sw.WriteLine("NumberOfTrainerImages = 147");
-            sw.WriteLine("TrainerPaletteTable = 239A1C");
-            sw.WriteLine("TrainerClassMoney = 24F220");
-            sw.WriteLine("DexSizeTrainerSprite = 135");
-            sw.WriteLine("TradeData = 26CF8C");
-            sw.WriteLine("NumberOfTrades = 9");
-            sw.WriteLine("PokedexAlphabetTable = 443FC0");
-            sw.WriteLine("PokedexLightestTable = 4442F6");
-            sw.WriteLine("PokedexSmallestTable = 4445FA");
-            sw.WriteLine("PokedexTypeTable = 4448FE");
+            sw.WriteLine("EggMoveTable=" + DisplayOffset3(FREggM, ROM, result1));
+            sw.WriteLine("EggMoveTableLimiter=45CC4");
+            sw.WriteLine("HabitatTable=452C4C"); //
+            sw.WriteLine("ItemAnimationTable=45FD54");
+            sw.WriteLine("TrainerTable=23EAF0");
+            sw.WriteLine("NumberOfTrainers=742");
+            sw.WriteLine("TrainerClasses=23E558");
+            sw.WriteLine("NumberOfTrainerClasses=6B");
+            sw.WriteLine("TrainerImageTable=23957C");
+            sw.WriteLine("NumberOfTrainerImages=147");
+            sw.WriteLine("TrainerPaletteTable=239A1C");
+            sw.WriteLine("TrainerClassMoney=24F220");
+            sw.WriteLine("DexSizeTrainerSprite=135");
+            sw.WriteLine("TradeData=26CF8C");
+            sw.WriteLine("NumberOfTrades=9");
+            sw.WriteLine("PokedexAlphabetTable=443FC0");
+            sw.WriteLine("PokedexLightestTable=4442F6");
+            sw.WriteLine("PokedexSmallestTable=4445FA");
+            sw.WriteLine("PokedexTypeTable=4448FE");
             sw.Flush();
             sw.Close();
             MessageBox.Show("Document created.");
