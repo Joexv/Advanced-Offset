@@ -761,9 +761,9 @@ namespace WindowsFormsApplication1
             sw.WriteLine("PokemonShinyPal=" + DisplayOffset3(FRSPal, ROM, result1));
             sw.WriteLine("IconPointerTable=" + DisplayOffset3(FRIconS, ROM, result1));
             sw.WriteLine("IconPalTable=" + DisplayOffset3(FRIconP, ROM, result1));
-            sw.WriteLine("CryTable=48C914"); //
-            sw.WriteLine("CryTable2=48DB44"); //
-            sw.WriteLine("CryConversionTable=2539D4"); //
+            sw.WriteLine("CryTable=48C914");
+            sw.WriteLine("CryTable2=48DB44");
+            sw.WriteLine("CryConversionTable=2539D4");
             sw.WriteLine("FootPrintTable=" + DisplayOffset3(FRFeet, ROM, result1));
             sw.WriteLine("PokemonAttackTable=" + DisplayOffset3(FRLMoves, ROM, result1));
             sw.WriteLine("PokemonEvolutions=" + DisplayOffset3(FREvo, ROM, result1));
@@ -773,10 +773,10 @@ namespace WindowsFormsApplication1
             sw.WriteLine("EnemyYTable=" + DisplayOffset3(FREnY, ROM, result1));
             sw.WriteLine("PlayerYTable=" + DisplayOffset3(FRPlaY, ROM, result1));
             sw.WriteLine("EnemyAltitudeTable=" + DisplayOffset3(FREnAlt, ROM, result1));
-            sw.WriteLine("AttackData=250C04"); //
-            sw.WriteLine("AttackDescriptionTable=4886E8"); //
-            sw.WriteLine("AbilityDescriptionTable=24FB08"); //
-            sw.WriteLine("AttackAnimationTable=1C68F4"); //
+            sw.WriteLine("AttackData=250C04");
+            sw.WriteLine("AttackDescriptionTable=4886E8");
+            sw.WriteLine("AbilityDescriptionTable=24FB08");
+            sw.WriteLine("AttackAnimationTable=1C68F4");
             sw.WriteLine("IconPals=" + DisplayOffset3(FRIP, ROM, result1));
             sw.WriteLine("JamboLearnableMovesTerm=0000FF");
             sw.WriteLine("StartSearchingForSpaceOffset=71A240");
@@ -817,7 +817,7 @@ namespace WindowsFormsApplication1
             sw.WriteLine("Evolution15Param = evolvesbasedonvalue");
             sw.WriteLine("EggMoveTable=" + DisplayOffset3(FREggM, ROM, result1));
             sw.WriteLine("EggMoveTableLimiter=45CC4");
-            sw.WriteLine("HabitatTable=452C4C"); //
+            sw.WriteLine("HabitatTable=452C4C");
             sw.WriteLine("ItemAnimationTable=45FD54");
             sw.WriteLine("TrainerTable=23EAF0");
             sw.WriteLine("NumberOfTrainers=742");
@@ -836,7 +836,7 @@ namespace WindowsFormsApplication1
             sw.WriteLine("PokedexTypeTable=4448FE");
             sw.Flush();
             sw.Close();
-            MessageBox.Show("Document created.");
+            MessageBox.Show("Document created. If you are using Jambo's Moveset hack don't forget to add 'MoveTableHack = True' to the ini!");
         }
     }
 }
