@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Class1.cs" />
     <Compile Include="Classes\CompressionFormat.cs" />
     <Compile Include="Classes\LZ77.cs" />
     <Compile Include="Classes\Extensions.cs" />
@@ -124,6 +125,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="INI\Emerald.ini" />
     <Content Include="utilities_terminal.ico" />
   </ItemGroup>
   <ItemGroup>
