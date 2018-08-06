@@ -52,3 +52,13 @@ C:\Users\joeol\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\A
 C:\Users\joeol\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
 C:\Users\joeol\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\A-Offset 2.0 Alpha.exe
 C:\Users\joeol\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\A-Offset 2.0 Alpha.pdb
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\bin\Debug\A-Offset 2.0 Alpha.exe.config
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\bin\Debug\A-Offset 2.0 Alpha.exe
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\bin\Debug\A-Offset 2.0 Alpha.pdb
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojAssemblyReference.cache
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\AOffset.Properties.Resources.resources
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.cache
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.CoreCompileInputs.cache
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\A-Offset 2.0 Alpha.exe
+C:\Users\Joe\Source\Repos\Advanced-Offset\WindowsFormsApplication1\obj\Debug\A-Offset 2.0 Alpha.pdb

@@ -214,8 +214,12 @@ namespace WindowsFormsApplication1
             ofd.Filter = "GBA File (*.gba)|*.gba";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+
                 #region DetermineROM
-                filePath = ofd.FileName;
+                string fullPath = ofd.FileName;
+                string fileName = ofd.SafeFileName;
+                filePath = fullPath.Replace(fileName, "");
+
                 BinaryReader br = new BinaryReader(File.OpenRead(ofd.FileName));
                 br.BaseStream.Seek(0xAC, SeekOrigin.Begin);
                 switch (Encoding.UTF8.GetString(br.ReadBytes(4)))
@@ -352,6 +356,8 @@ namespace WindowsFormsApplication1
                 
                 br.Close();
                 ofd.Dispose();
+
+                MyIni = new IniFile(Path.GetFileNameWithoutExtension(ROM) + ".ini");
             }
         }
 
@@ -834,41 +840,69 @@ namespace WindowsFormsApplication1
             }        
             if (Emerald == true)
             {
-                #region Emerald
-                ExtractFile("Emerald.ini");
+                try
+                {
+                    #region Emerald
+                    ExtractFile("Emerald.ini");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Error extracting ini.");
+                    MessageBox.Show(ex.ToString());
+                }
+                try
+                {
 
-                MyIni.Write("ROMName", Path.GetFileNameWithoutExtension(ROM), "BPEE");
+                    string Temp = "";
+                    MyIni = new IniFile(filePath + Path.GetFileNameWithoutExtension(ROM) + ".ini");
+                    MessageBox.Show(filePath + Path.GetFileNameWithoutExtension(ROM) + ".ini");
+                    MyIni.Write("ROMName", filePath + Path.GetFileNameWithoutExtension(ROM), "BPEE");
                 MyIni.Write("ItemData", DisplayOffset3(EMItems, ROM, result1), "BPEE");
                 MyIni.Write("AttackNames", DisplayOffset3(EMMNames, ROM, result1), "BPEE");
                 MyIni.Write("TMData", DisplayOffset3(EMTMList, ROM, result1), "BPEE");
-                MyIni.Write("NumberOfAttacks", Interaction.InputBox("Amount of moves?", "", "355"), "BPEE");
+                    Temp = Interaction.InputBox("Amount of moves?", "", "355");
+                MyIni.Write("NumberOfAttacks", Temp, "BPEE");
                 MyIni.Write("PokemonNames", DisplayOffset(EMPName, ROM, result1), "BPEE");
-                MyIni.Write("NumberOfPokemon", Interaction.InputBox("Amount of Pokemon?", "", "412"), "BPEE");
+                    Temp = Interaction.InputBox("Amount of Pokemon?", "", "412");
+                MyIni.Write("NumberOfPokemon", Temp, "BPEE");
                 MyIni.Write("NationalDexTable", DisplayOffset(EMNDex, ROM, result1), "BPEE");
                 MyIni.Write("PokedexData", DisplayOffset(0xBFA20, ROM, result1), "BPEE");
                 MyIni.Write("PokemonData", DisplayOffset3(EMStats, ROM, result1), "BPEE");
                 MyIni.Write("AbilityNames", DisplayOffset3(EMAbill, ROM, result1), "BPEE");
-                MyIni.Write("NumberOfAbilities", Interaction.InputBox("Amount of Abilities?", "", "76"), "BPEE");
-                MyIni.Write("EggMoveTable" + DisplayOffset3(FREggM, ROM, result1), "BPEE");
-                MyIni.Write("NumberOfEvolutionsPerPokemon" + Interaction.InputBox("Amount of Evolutions Per Mon?", "", "5"), "BPEE");
-                MyIni.Write("PokemonFrontSprites" + DisplayOffset3(EMFront, ROM, result1), "BPEE");
-                MyIni.Write("PokemonBackSprites" + DisplayOffset3(EMBack, ROM, result1), "BPEE");
-                MyIni.Write("PokemonNormalPal" + DisplayOffset3(EMPal, ROM, result1), "BPEE");
-                MyIni.Write("PokemonShinyPal" + DisplayOffset3(EMSPal, ROM, result1), "BPEE");
-                MyIni.Write("IconPointerTable" + DisplayOffset3(EMIconS, ROM, result1), "BPEE");
-                MyIni.Write("IconPalTable" + DisplayOffset3(EMIconP, ROM, result1), "BPEE");
-                MyIni.Write("FootPrintTable" + DisplayOffset3(EMFeet, ROM, result1), "BPEE");
-                MyIni.Write("PokemonAttackTable" + DisplayOffset3(EMLMoves, ROM, result1), "BPEE");
-                MyIni.Write("PokemonEvolutions" + DisplayOffset3(EMEvo, ROM, result1), "BPEE");
-                MyIni.Write("TMHMCompatibility" + DisplayOffset3(EMTMCom, ROM, result1), "BPEE");
-                MyIni.Write("MoveTutorCompatibility" + DisplayOffset3(EMTutCom, ROM, result1), "BPEE");
-                MyIni.Write("EnemyYTable" + DisplayOffset3(EMEnY, ROM, result1), "BPEE");
-                MyIni.Write("PlayerYTable" + DisplayOffset3(EMPlaY, ROM, result1), "BPEE");
-                MyIni.Write("EnemyAltitudeTable" + DisplayOffset3(EMEnAlt, ROM, result1), "BPEE");
-                MyIni.Write("IconPals" + DisplayOffset3(EMIP, ROM, result1), "BPEE");
+                    Temp = Interaction.InputBox("Amount of Abilities?", "", "76");
+                MyIni.Write("NumberOfAbilities", Temp, "BPEE");
+                MyIni.Write("EggMoveTable", DisplayOffset3(FREggM, ROM, result1), "BPEE");
+                    Temp = Interaction.InputBox("Amount of Evolutions Per Mon?", "", "5");
+                MyIni.Write("NumberOfEvolutionsPerPokemon" + Temp, "BPEE");
+                MyIni.Write("PokemonFrontSprites", DisplayOffset3(EMFront, ROM, result1), "BPEE");
+                MyIni.Write("PokemonBackSprites", DisplayOffset3(EMBack, ROM, result1), "BPEE");
+                MyIni.Write("PokemonNormalPal", DisplayOffset3(EMPal, ROM, result1), "BPEE");
+                MyIni.Write("PokemonShinyPal", DisplayOffset3(EMSPal, ROM, result1), "BPEE");
+                MyIni.Write("IconPointerTable", DisplayOffset3(EMIconS, ROM, result1), "BPEE");
+                MyIni.Write("IconPalTable", DisplayOffset3(EMIconP, ROM, result1), "BPEE");
+                MyIni.Write("FootPrintTable", DisplayOffset3(EMFeet, ROM, result1), "BPEE");
+                MyIni.Write("PokemonAttackTable", DisplayOffset3(EMLMoves, ROM, result1), "BPEE");
+                MyIni.Write("PokemonEvolutions", DisplayOffset3(EMEvo, ROM, result1), "BPEE");
+                MyIni.Write("TMHMCompatibility", DisplayOffset3(EMTMCom, ROM, result1), "BPEE");
+                MyIni.Write("MoveTutorCompatibility", DisplayOffset3(EMTutCom, ROM, result1), "BPEE");
+                MyIni.Write("EnemyYTable", DisplayOffset3(EMEnY, ROM, result1), "BPEE");
+                MyIni.Write("PlayerYTable", DisplayOffset3(EMPlaY, ROM, result1), "BPEE");
+                MyIni.Write("EnemyAltitudeTable", DisplayOffset3(EMEnAlt, ROM, result1), "BPEE");
+                MyIni.Write("IconPals", DisplayOffset3(EMIP, ROM, result1), "BPEE");
+                }
+                catch (Exception exe)
+                {
+                    MessageBox.Show("Error editing ini.");
+                    MessageBox.Show(exe.ToString());
+                }
                 MessageBox.Show("Document created.");
                 #endregion
             }
+        }
+
+        public void Create_EM_PGE()
+        {
+
         }
 
         private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
@@ -884,7 +918,7 @@ namespace WindowsFormsApplication1
 
         private static void ExtractFile(string FileName)
         {
-                Extract("WindowsFormsApplication1", Path.GetDirectoryName(filePath), "INI", FileName);
+                Extract("AOffset", filePath, "INI", FileName);
         }
     }
 }
