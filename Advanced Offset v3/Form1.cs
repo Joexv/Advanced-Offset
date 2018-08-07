@@ -41,12 +41,14 @@ namespace WindowsFormsApp1
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 filePath = ofd.FileName;
-
+                ofd.Dispose();
+                
                 ROM = Path.GetFileNameWithoutExtension(filePath);
                 fullPath = ofd.FileName;
                 fileName = ofd.SafeFileName;
                 filePath = fullPath.Replace(fileName, "");
-                ofd.Dispose();
+
+                Rom_Label.Text = fileName;
 
                 BinaryReader br = new BinaryReader(File.OpenRead(fullPath));
                 br.BaseStream.Seek(0xAC, SeekOrigin.Begin);
@@ -67,8 +69,8 @@ namespace WindowsFormsApp1
                         isEmerald = false;
                         break;
                 }
-                br.Close();
-
+                //br.Close();
+                br.Dispose();
                 UpdateDataGrid();
                 
             }
@@ -100,6 +102,7 @@ namespace WindowsFormsApp1
             dt.Columns.Add(" ");
             dt.Columns.Add("Offset");
             dt.Columns.Add("Location");
+            dt.Columns.Add("  ");
 
             var lines = File.ReadLines(fileName);
             foreach (var line in lines)
@@ -169,6 +172,8 @@ namespace WindowsFormsApp1
             int vOut = BitConverter.ToInt32(bytes, 0);
             int vOut2 = vOut - 0x8000000;
             string result = "0x" + vOut2.ToString("x7").ToUpper();
+            //br.Close();
+            br.Dispose();
             return result;
         }
 
@@ -181,6 +186,8 @@ namespace WindowsFormsApp1
             int vOut = BitConverter.ToInt32(bytes, 0);
             int vOut2 = vOut - 0x8000000;
             string result = vOut2.ToString("x7").ToUpper();
+            //br.Close();
+            br.Dispose();
             return result;
         }
 
@@ -212,7 +219,8 @@ namespace WindowsFormsApp1
 
         private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
         {
-
+            try
+            {
                 Assembly assembly = Assembly.GetCallingAssembly();
 
                 using (Stream s = assembly.GetManifestResourceStream(nameSpace + "." + (internalFilePath == "" ? "" : internalFilePath + ".") + resourceName))
@@ -220,13 +228,21 @@ namespace WindowsFormsApp1
                 using (FileStream fs = new FileStream(outDirectory, FileMode.OpenOrCreate))
                 using (BinaryWriter w = new BinaryWriter(fs))
                     w.Write(r.ReadBytes((int)s.Length));
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error exctracting file: " + resourceName + Environment.NewLine + e.ToString());
+            }
+
+
 
         }
 
         private static void ExtractOffset(string FileName)
         {
-            File.Delete(Application.StartupPath + "\\" + FileName);
-            Extract("AdvOffset", Application.StartupPath + "\\" + FileName, "Offsets", FileName);
+            if(!File.Exists(Application.StartupPath + "\\" + FileName))
+                Extract("AdvOffset", Application.StartupPath + "\\" + FileName, "Offsets", FileName);
+
         }
 
         private static void ExtractINI(string FileName)
@@ -251,6 +267,7 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             ExtractOffset("EMoffsets.txt");
+            ExtractOffset("FRoffsets.txt");
         }
 
         private void Export_Button_Click(object sender, EventArgs e)

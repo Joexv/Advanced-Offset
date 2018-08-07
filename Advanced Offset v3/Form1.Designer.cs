@@ -73,7 +73,7 @@
             // 
             // Export_Button
             // 
-            this.Export_Button.Location = new System.Drawing.Point(311, 34);
+            this.Export_Button.Location = new System.Drawing.Point(431, 34);
             this.Export_Button.Name = "Export_Button";
             this.Export_Button.Size = new System.Drawing.Size(114, 33);
             this.Export_Button.TabIndex = 2;
@@ -88,7 +88,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 622);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(440, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(557, 25);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -106,19 +106,20 @@
             this.Offset_View.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Offset_View.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.Offset_View.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Offset_View.Location = new System.Drawing.Point(12, 90);
             this.Offset_View.Name = "Offset_View";
             this.Offset_View.ReadOnly = true;
             this.Offset_View.RowTemplate.Height = 24;
-            this.Offset_View.Size = new System.Drawing.Size(417, 532);
+            this.Offset_View.Size = new System.Drawing.Size(534, 532);
             this.Offset_View.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 647);
+            this.ClientSize = new System.Drawing.Size(557, 647);
             this.Controls.Add(this.Offset_View);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.Export_Button);
