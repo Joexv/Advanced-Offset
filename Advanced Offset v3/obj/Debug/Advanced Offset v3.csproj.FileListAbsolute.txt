@@ -1,0 +1,14 @@
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Debug\Advanced Offset v3.exe.config
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Debug\Advanced Offset v3.exe
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Debug\Advanced Offset v3.pdb
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Debug\INIFileParser.dll
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Debug\INIFileParser.xml
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\Advanced Offset v3.csprojAssemblyReference.cache
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\WindowsFormsApp1.Form2.resources
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\AdvOffset.Properties.Resources.resources
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\Advanced Offset v3.csproj.GenerateResource.cache
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\Advanced Offset v3.csproj.CoreCompileInputs.cache
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\Advanced Offset v3.csproj.CopyComplete
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\Advanced Offset v3.exe
+C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Debug\Advanced Offset v3.pdb
