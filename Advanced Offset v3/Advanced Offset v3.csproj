@@ -106,12 +106,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Offsets\Emerald.ini" />
-    <EmbeddedResource Include="Offsets\EMoffsets.txt" />
+    <EmbeddedResource Include="Offsets\EMpge.txt" />
     <EmbeddedResource Include="Offsets\FireRed.ini" />
-    <EmbeddedResource Include="Offsets\FRoffsets.txt" />
+    <EmbeddedResource Include="Offsets\FRpge.txt" />
     <Content Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="Offsets\EMmisc.txt" />
+    <EmbeddedResource Include="Offsets\FRmisc.txt" />
     <Content Include="utilities_terminal.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

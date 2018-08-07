@@ -1,0 +1,6 @@
+﻿TitleLogo=0xaa94c
+TitleLogoRAW=0xaa958
+TitleBackGround=0xaa95c
+TitleBackGroundRAW=0xaa964
+TitleSprite=0x540048
+TitleSpriteRaw=0xaa98c

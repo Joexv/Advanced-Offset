@@ -71,15 +71,24 @@ namespace WindowsFormsApp1
                 }
                 //br.Close();
                 br.Dispose();
-                UpdateDataGrid();
+
+
+                string Game;
+                if (isFireRed == true)
+                    Game = "FRpge.txt";
+                else
+                    Game = "EMpge.txt";
                 
+                comboBox1.SelectedIndex = comboBox1.FindStringExact(Game);
+                Export_Button.Enabled = true;
+                UpdateDataGrid(Game);
             }
         }
 
-        public void UpdateDataGrid()
+        public void UpdateDataGrid(string txtFile)
         {
             DoubleBuffered(Offset_View, true);
-            Offset_View.DataSource = DataTable();
+            Offset_View.DataSource = DataTable(txtFile);
         }
 
         public static void DoubleBuffered(DataGridView dgv, bool setting)
@@ -90,21 +99,16 @@ namespace WindowsFormsApp1
             pi.SetValue(dgv, setting, null);
         }
 
-        public DataTable DataTable()
+        public DataTable DataTable(string txtFile)
         {
-            string Game;
-            if (isFireRed == true)
-                Game = "FRoffsets.txt";
-            else
-                Game = "EMoffsets.txt";
-            string fileName = Application.StartupPath + "\\" + Game;
+            txtFile = Application.StartupPath + "\\Offsets\\" + txtFile;
             DataTable dt = new DataTable();
             dt.Columns.Add(" ");
             dt.Columns.Add("Offset");
             dt.Columns.Add("Location");
             dt.Columns.Add("  ");
 
-            var lines = File.ReadLines(fileName);
+            var lines = File.ReadLines(txtFile);
             foreach (var line in lines)
             {
                 DataRow dr = dt.NewRow();
@@ -126,15 +130,14 @@ namespace WindowsFormsApp1
             if (isFireRed == true)
             {
                 ExtractINI("FireRed.ini");
-                Game = "FRoffsets.txt";
+                Game = "\\Offsets\\FRpge.txt";
             }
             else
             {
                 ExtractINI("Emerald.ini");
-                Game = "EMoffsets.txt";
+                Game = "\\Offsets\\EMpge.txt";
             }
-            string fileName = Application.StartupPath + "\\" + Game;
-
+            string fileName = Application.StartupPath + Game;
 
 
             var lines = File.ReadLines(fileName);
@@ -240,8 +243,9 @@ namespace WindowsFormsApp1
 
         private static void ExtractOffset(string FileName)
         {
-            if(!File.Exists(Application.StartupPath + "\\" + FileName))
-                Extract("AdvOffset", Application.StartupPath + "\\" + FileName, "Offsets", FileName);
+
+            if(!File.Exists(Application.StartupPath + "\\Offsets\\" + FileName))
+                Extract("AdvOffset", Application.StartupPath + "\\Offsets\\" + FileName, "Offsets", FileName);
 
         }
 
@@ -266,13 +270,33 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ExtractOffset("EMoffsets.txt");
-            ExtractOffset("FRoffsets.txt");
+            Directory.CreateDirectory(Application.StartupPath + @"\Offsets\");
+            ExtractOffset("EMpge.txt");
+            ExtractOffset("FRpge.txt");
+            ExtractOffset("EMmisc.txt");
+            ExtractOffset("FRmisc.txt");
+
+            string startPath = Application.StartupPath + @"\Offsets\";
+            var txtFiles = Directory.EnumerateFiles(startPath, "*.txt");
+            foreach (string currentFile in txtFiles)
+            {
+                Console.WriteLine(Path.GetFileName(currentFile));
+                comboBox1.Items.Add(Path.GetFileName(currentFile));
+            }
         }
 
         private void Export_Button_Click(object sender, EventArgs e)
         {
             MakeINI();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text == "FRpge.txt" || comboBox1.Text == "EMpge.txt")
+                Export_Button.Enabled = true;
+            else
+                Export_Button.Enabled = false;
+            UpdateDataGrid(comboBox1.Text);
         }
     }
 }

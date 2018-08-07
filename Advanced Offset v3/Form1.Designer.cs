@@ -36,6 +36,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Offset_View = new System.Windows.Forms.DataGridView();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Offset_View)).BeginInit();
@@ -55,7 +56,7 @@
             // Rom_Label
             // 
             this.Rom_Label.AutoSize = true;
-            this.Rom_Label.Location = new System.Drawing.Point(120, 30);
+            this.Rom_Label.Location = new System.Drawing.Point(104, 30);
             this.Rom_Label.Name = "Rom_Label";
             this.Rom_Label.Size = new System.Drawing.Size(101, 17);
             this.Rom_Label.TabIndex = 1;
@@ -73,7 +74,8 @@
             // 
             // Export_Button
             // 
-            this.Export_Button.Location = new System.Drawing.Point(431, 34);
+            this.Export_Button.Enabled = false;
+            this.Export_Button.Location = new System.Drawing.Point(431, 20);
             this.Export_Button.Name = "Export_Button";
             this.Export_Button.Size = new System.Drawing.Size(114, 33);
             this.Export_Button.TabIndex = 2;
@@ -115,11 +117,21 @@
             this.Offset_View.Size = new System.Drawing.Size(534, 532);
             this.Offset_View.TabIndex = 4;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(311, 59);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(234, 24);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(557, 647);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.Offset_View);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.Export_Button);
@@ -147,6 +159,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.DataGridView Offset_View;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

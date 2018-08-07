@@ -1,0 +1,11 @@
+﻿TypeEffectivenessTable=1E944
+TitleScreenLogo1=78a98
+TitleScreenLogo2=78a9c
+TitleScreenLogo3=78A94
+TitleScreenBackground1=78ab0
+TitleScreenBackground2=78ab4
+TitleScreenBackground3=78AAC
+TitleScreenSprite1=78aa4
+TitleScreenSprite2=78aa8
+TitleScreenSprite3=78AA0
+TitleScreenFlame=3bfbbc
