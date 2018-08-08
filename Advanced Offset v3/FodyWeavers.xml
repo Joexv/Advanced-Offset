@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Weavers>
-
+  <Costura
+  Unmanaged32Assemblies='INIFileParser'
+  Unmanaged64Assemblies='INIFileParser' />
+  <Costura
+  Unmanaged32Assemblies='Costura'
+  Unmanaged64Assemblies='Costura' />
 </Weavers>

@@ -34,7 +34,7 @@ namespace WindowsFormsApp1
         bool isFireRed = false;
         bool isEmerald = false;
         private FileIniDataParser fileIniData = new FileIniDataParser();
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -118,7 +118,7 @@ namespace WindowsFormsApp1
                 //MessageBox.Show(Offset);
                 dr[" "] = Name;
                 dr["Offset"] = ReadOffset(Offset);
-                dr["Location"] = Offset;
+                dr["Location"] = "0x" + Offset;
 
                 dt.Rows.Add(dr);
             }
@@ -144,11 +144,14 @@ namespace WindowsFormsApp1
             var lines = File.ReadLines(fileName);
             foreach (var line in lines)
             {
-                string Offset = line.Split('=').Last();
-                string Name = line.Split('=').First();
-                Offset = PGEoffset(Offset);
-                //MessageBox.Show(ROM + ".ini");
-                Write(ROM + ".ini", Name, Offset);
+                if(!line.ToString().Contains(@"#"))
+                {
+                    string Offset = line.Split('=').Last();
+                    string Name = line.Split('=').First();
+                    Offset = PGEoffset(Offset);
+                    //MessageBox.Show(ROM + ".ini");
+                    Write(ROM + ".ini", Name, Offset);
+                }
             }
 
             string Item = Interaction.InputBox("Amount of Items?", "", "377");
@@ -197,6 +200,8 @@ namespace WindowsFormsApp1
 
         public string Get_Data(string ROM, string Object)
         {
+            fileIniData.Parser.Configuration.CommentString = @"#";
+            fileIniData.Parser.Configuration.AllowDuplicateKeys = true;
             string FileLocation = filePath + ROM + ".ini";
             var parser = new FileIniDataParser();
             IniData data = parser.ReadFile(FileLocation);
@@ -206,6 +211,8 @@ namespace WindowsFormsApp1
 
         public void Write(string ROM, string Object, string Value)
         {
+            fileIniData.Parser.Configuration.CommentString = @"#";
+            fileIniData.Parser.Configuration.AllowDuplicateKeys = true;
             string FileLocation = filePath + ROM;
             var parser = new FileIniDataParser();
             IniData data = parser.ReadFile(FileLocation);
@@ -257,6 +264,7 @@ namespace WindowsFormsApp1
                 DialogResult dialogResult = MessageBox.Show("The INI already exists do you want to overwrite it?", "Warning", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    File.Delete(filePath + ROM + ".ini");
                     Extract("AdvOffset", filePath + ROM + ".ini", "Offsets", FileName);
                 }
                 else if (dialogResult == DialogResult.No)
@@ -276,7 +284,8 @@ namespace WindowsFormsApp1
             ExtractOffset("FRpge.txt");
             ExtractOffset("EMmisc.txt");
             ExtractOffset("FRmisc.txt");
-
+            fileIniData.Parser.Configuration.CommentString = @"#";
+            fileIniData.Parser.Configuration.AllowDuplicateKeys = true;
             string startPath = Application.StartupPath + @"\Offsets\";
             var txtFiles = Directory.EnumerateFiles(startPath, "*.txt");
             foreach (string currentFile in txtFiles)

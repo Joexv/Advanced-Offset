@@ -6,11 +6,5 @@ C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Release\Adva
 C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Release\Advanced Offset v3.csproj.CoreCompileInputs.cache
 C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Release\Advanced Offset v3.exe
 C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Release\Advanced Offset v3.pdb
-C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Release\Advanced Offset v3.exe.config
 C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Release\Advanced Offset v3.exe
 C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Release\Advanced Offset v3.pdb
-C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Release\INIFileParser.dll
-C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Release\INIFileParser.xml
-C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\obj\Release\Advanced Offset v3.csproj.CopyComplete
-C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Release\Costura.dll
-C:\Users\Joe\source\repos\Advanced Offset v3\Advanced Offset v3\bin\Release\Costura.xml
